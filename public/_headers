@@ -1,0 +1,21 @@
+# ==========================================================================
+# Cloudflare Pages — cabecalhos por rota.
+# O Pages, por padrao, manda `max-age=0, must-revalidate` para tudo e conta
+# com o ETag. Funciona, mas gasta uma ida ao servidor por arquivo em toda
+# visita. Os arquivos com hash no nome nao precisam disso.
+# ==========================================================================
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# Nome do arquivo carrega o hash do conteudo: se o conteudo mudar, o nome
+# muda junto. Cache eterno e seguro.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/og.png
+  Cache-Control: public, max-age=604800

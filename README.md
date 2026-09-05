@@ -27,22 +27,18 @@ npm run dev      # http://localhost:4321
 
 ---
 
-## A única configuração pendente
+## Configuração
 
-Em **`src/data/site.ts`**:
+Tudo em **`src/data/site.ts`**: domínio, URLs do app e da demo, WhatsApp,
+cidade e redes sociais.
 
-```ts
-whatsapp: '',   // ← FALTA ISTO: 55 + DDD + número, só dígitos
-```
+O WhatsApp (`5581995478511`) alimenta os 4 botões "Quero ver funcionando" —
+nav, hero, CTA final e rodapé. Se for esvaziado, eles voltam a ser âncora
+interna: a página funciona, mas não converte.
 
-Alimenta os 4 botões "Quero ver funcionando" (nav, hero, CTA final e rodapé).
-Preenchido, todos viram link de WhatsApp com a mensagem já escrita. **Enquanto
-estiver vazio, eles seguem como âncora interna** — a página funciona, mas não
-converte.
-
-No mesmo arquivo ficam domínio, URLs do app e da demo, cidade e redes sociais.
-`instagram` e `facebook` preenchidos entram no `sameAs` do schema, que ajuda o
-Google a ligar o site à entidade da marca.
+`instagram` e `facebook` seguem vazios. Preenchidos, entram no `sameAs` do
+schema, que ajuda o Google a ligar o site à entidade da marca — vale preencher
+assim que os perfis existirem.
 
 ---
 
@@ -74,9 +70,10 @@ src/
 public/
   og.png             imagem de compartilhamento (1200×630)
   robots.txt  favicon.svg  fonts/
+  _headers           cache e segurança (Cloudflare Pages)
+  _redirects         /sitemap.xml -> /sitemap-index.xml
 deploy/
-  Caddyfile          bloco do apex + redirect do www
-  publicar.sh        build + rsync para o VPS
+  README.md          passo a passo da publicação
 ```
 
 O design não foi alterado: os quatro CSS originais estão intactos e tudo que
@@ -86,17 +83,11 @@ mudou está em `ajustes.css`.
 
 ## Publicar
 
-```bash
-bash deploy/publicar.sh
-```
+A landing vive no **Cloudflare Pages**, no apex; o app e os cardápios dos
+clientes continuam no VPS da Vultr. Um push na `main` publica.
 
-Faz o build, envia o `dist/` por rsync e recarrega o Caddy. Ajuste `SERVIDOR`
-e `DESTINO` no topo do script (ou passe por variável de ambiente).
-
-**Antes do primeiro deploy**, cole os dois blocos de `deploy/Caddyfile` no
-Caddyfile do VPS. Eles precisam vir junto com o bloco `*.balcaonaweb.com.br`
-dos clientes — o Caddy casa o nome mais específico primeiro, então o apex
-passa a servir a landing e o resto continua indo para o Next.js.
+O passo a passo completo — criar o projeto, apontar o domínio, o redirect do
+www e o que ajustar no Caddy depois — está em **[`deploy/README.md`](deploy/README.md)**.
 
 ---
 
@@ -149,10 +140,11 @@ Estas dependem do app Next.js ou do painel da Cloudflare, não deste projeto:
    <meta name="robots" content="noindex, nofollow">
    ```
 
-2. **Duas marcas para o mesmo produto.** O app se chama "Cardápio Fácil"
-   (`<title>Cardápio Fácil — Painel</title>`) e o site se chama "Balcão na
-   Web". Isso divide a autoridade da marca e confunde quem chega pelo Google.
-   Vale escolher um nome e usar em tudo.
+2. **O app ainda se chama "Cardápio Fácil".** O nome do produto é
+   **Balcão na Web** — decidido. Enquanto o app responder
+   `<title>Cardápio Fácil — Painel</title>`, a busca por nome, os links e o
+   cliente que chega por indicação se dividem entre duas marcas. Trocar agora
+   custa um find-and-replace; depois custa QR Code impresso.
 
 3. **Subdomínios dos clientes** (`titus.balcaonaweb.com.br` e os próximos)
    devem ter `<link rel="canonical">` apontando para eles mesmos, para não

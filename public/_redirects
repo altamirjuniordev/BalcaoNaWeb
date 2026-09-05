@@ -1,0 +1,11 @@
+# ==========================================================================
+# Cloudflare Pages — redirects do proprio projeto.
+#
+# O redirect de www para o apex NAO fica aqui: ele e por hostname e o lugar
+# certo e uma Redirect Rule no painel da Cloudflare, que roda na borda antes
+# do Pages. Ver deploy/README.md.
+# ==========================================================================
+
+# O @astrojs/sitemap gera sitemap-index.xml, nao sitemap.xml. Quem procurar
+# o nome classico (e o Search Console aceita os dois) chega no lugar certo.
+/sitemap.xml  /sitemap-index.xml  301

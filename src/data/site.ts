@@ -13,7 +13,7 @@ export const site = {
 
   /* WhatsApp: 55 + DDD + numero, so digitos. Vazio = os botoes viram
      ancora interna, a pagina funciona mas nao converte. */
-  whatsapp: '',
+  whatsapp: '5581995478511',   // 55 + 81 + 995478511
   mensagemWhatsapp:
     'Olá! Vi o site do Balcão na Web e quero ver o sistema funcionando na minha loja.',
 
