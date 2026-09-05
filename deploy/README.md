@@ -23,6 +23,12 @@ Dashboard → **Workers & Pages** → Create → Pages → Connect to Git → es
 | Output directory | `dist` |
 | Production branch | `main` |
 
+> A versão do Node vem do `.nvmrc` na raiz (22). Sem ele o Pages usa
+> 18.17.1 por padrão e o build falha: o Astro exige
+> `18.20.8 || ^20.3.0 || >=22`. Se por algum motivo o `.nvmrc` for
+> ignorado, dá para forçar em Settings → Environment variables:
+> `NODE_VERSION = 22`.
+
 O deploy sai num endereço `*.pages.dev`. **Valide ali antes de tocar no DNS:**
 
 - a página abre e o tema não pisca ao recarregar;
