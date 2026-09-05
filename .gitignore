@@ -5,3 +5,7 @@ Thumbs.db
 .env
 .vscode/
 .idea/
+
+# Astro
+dist/
+.astro/

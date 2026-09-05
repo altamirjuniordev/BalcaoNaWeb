@@ -5,15 +5,14 @@
    O JS zera para animar. Sem JS (ou com movimento reduzido) a peca continua
    completa e legivel — so nao se mexe.
    ========================================================================== */
-(function (BW) {
-  'use strict';
+import { qs, qsa, el, money, debounce, prefereMenosMovimento } from './utils.js';
 
-  var U = BW.utils;
-  var root = document.getElementById('hero3d');
-  if (!root) return;
+const root = document.getElementById('hero3d');
+if (root) iniciar();
 
-  var stage = U.qs('.hero3d__stage', root);
-  var reduced = U.prefersReducedMotion();
+function iniciar() {
+  var stage = qs('.hero3d__stage', root);
+  var reduced = prefereMenosMovimento();
   var mqStage = window.matchMedia('(min-width: 900px)');
   var mqFine = window.matchMedia('(hover: hover) and (pointer: fine)');
 
@@ -33,8 +32,8 @@
      Conta do zero ate o valor final com desaceleracao. Formato vem do HTML
      para o numero animado sair identico ao que ja estava escrito la. */
   function formatar(valor, formato) {
-    if (formato === 'brl') return U.money(valor);
-    if (formato === 'brl0') return U.money(valor).replace(/,\d{2}$/, '');
+    if (formato === 'brl') return money(valor);
+    if (formato === 'brl0') return money(valor).replace(/,\d{2}$/, '');
     return String(Math.round(valor)).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
 
@@ -69,7 +68,7 @@
      A linha se desenha por stroke-dashoffset; a area e os pontos entram
      depois, por CSS, quando o container ganha .is-drawn. */
   function desenharLinhas() {
-    U.qsa('.h3-line', root).forEach(function (path) {
+    qsa('.h3-line', root).forEach(function (path) {
       var len = path.getTotalLength();
       path.style.strokeDasharray = len;
       path.style.strokeDashoffset = len;
@@ -78,11 +77,11 @@
                               (path.dataset.delay || '0ms');
       path.style.strokeDashoffset = '0';
     });
-    U.qsa('.h3-chart', root).forEach(function (c) { c.classList.add('is-drawn'); });
+    qsa('.h3-chart', root).forEach(function (c) { c.classList.add('is-drawn'); });
   }
 
   function crescerBarras() {
-    U.qsa('.h3-bars i', root).forEach(function (bar, i) {
+    qsa('.h3-bars i', root).forEach(function (bar, i) {
       bar.style.setProperty('--d', (i * 45) + 'ms');
       bar.style.transform = 'scaleY(0)';
       bar.getBoundingClientRect();
@@ -91,7 +90,7 @@
   }
 
   function crescerDonut() {
-    U.qsa('.h3-seg', root).forEach(function (seg, i) {
+    qsa('.h3-seg', root).forEach(function (seg, i) {
       var c = 2 * Math.PI * Number(seg.getAttribute('r'));
       var pct = Number(seg.dataset.pct) / 100;
       var arco = Math.max(0, c * pct - 3);          /* -3 = respiro entre fatias */
@@ -113,11 +112,11 @@
     { canal: 'Delivery', itens: 3, valor: 71.50 }
   ];
 
-  var lista = U.qs('.h3-orders', root);
-  var toast = U.qs('.h3-toast', root);
-  var toastTitulo = U.qs('.h3-toast__title', root);
-  var kpiPedidos = U.qs('[data-kpi="pedidos"]', root);
-  var kpiCaixa = U.qs('[data-kpi="caixa"]', root);
+  var lista = qs('.h3-orders', root);
+  var toast = qs('.h3-toast', root);
+  var toastTitulo = qs('.h3-toast__title', root);
+  var kpiPedidos = qs('[data-kpi="pedidos"]', root);
+  var kpiCaixa = qs('[data-kpi="caixa"]', root);
   var numero = 129, fila = 0, timerPedido = 0, timerToast = 0;
 
   /* A fila anda junto: cada pedido novo empurra os outros um passo adiante.
@@ -133,7 +132,7 @@
   }
 
   function envelhecer() {
-    U.qsa('.h3-order .h3-pill', lista).forEach(function (marca) {
+    qsa('.h3-order .h3-pill', lista).forEach(function (marca) {
       var atual = (marca.className.match(/h3-pill--(\w+)/) || [])[1];
       var proximo = PASSOS[atual];
       if (!proximo) return;                    /* concluido e o fim da linha */
@@ -147,7 +146,7 @@
   var TEMPOS = ['agora', 'há 1 min', 'há 4 min', 'há 9 min'];
 
   function marcarTempos() {
-    U.qsa('.h3-order__meta', lista).forEach(function (meta, i) {
+    qsa('.h3-order__meta', lista).forEach(function (meta, i) {
       var itens = meta.textContent.split('·')[0].trim();
       meta.textContent = itens + ' · ' + (TEMPOS[i] || 'há 12 min');
     });
@@ -158,13 +157,13 @@
     var dado = FILA[fila++ % FILA.length];
     envelhecer();
 
-    var linha = U.el('div', { class: 'h3-order is-new' },
+    var linha = el('div', { class: 'h3-order is-new' },
       pill('recebido', 'Recebido') +
       '<span class="h3-order__body">' +
         '<span class="h3-order__id">#' + numero + ' &middot; ' + dado.canal + '</span>' +
         '<span class="h3-order__meta">' + dado.itens + ' itens &middot; agora</span>' +
       '</span>' +
-      '<span class="h3-order__val">' + U.money(dado.valor) + '</span>'
+      '<span class="h3-order__val">' + money(dado.valor) + '</span>'
     );
 
     lista.insertBefore(linha, lista.firstChild);
@@ -234,7 +233,7 @@
   /* ----------------------------------------------------------- entrada --
      Estado inicial so no JS: se algo falhar, os cartoes ficam visiveis em vez
      de sumidos. Mesma logica da revelacao das secoes em landing.js. */
-  var camadas = U.qsa('.h3-enter', root);
+  var camadas = qsa('.h3-enter', root);
   var entrou = false;
 
   function prepararEntrada() {
@@ -254,7 +253,7 @@
       node.style.transform = 'none';
     });
 
-    U.qsa('[data-count]', root).forEach(contar);
+    qsa('[data-count]', root).forEach(contar);
     desenharLinhas();
     crescerBarras();
     crescerDonut();
@@ -273,7 +272,7 @@
 
   function init() {
     fit();
-    window.addEventListener('resize', U.debounce(fit, 150));
+    window.addEventListener('resize', debounce(fit, 150));
     if (window.ResizeObserver) new ResizeObserver(fit).observe(root);
 
     setupParallax();
@@ -304,6 +303,5 @@
     });
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
-})(window.BW = window.BW || {});
+  init();
+}

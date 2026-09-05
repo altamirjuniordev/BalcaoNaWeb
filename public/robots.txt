@@ -1,0 +1,10 @@
+# Balcão na Web — https://balcaonaweb.com.br
+
+User-agent: *
+Allow: /
+
+# O painel do lojista nao tem nada a indexar: e tela de login.
+Disallow: /painel
+Disallow: /login
+
+Sitemap: https://balcaonaweb.com.br/sitemap-index.xml

@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import ComoFunciona from '../components/ComoFunciona.astro';
+import PorQue from '../components/PorQue.astro';
+import Painel from '../components/Painel.astro';
+import EmBreve from '../components/EmBreve.astro';
+import Faq from '../components/Faq.astro';
+import CtaFinal from '../components/CtaFinal.astro';
+import Footer from '../components/Footer.astro';
+import { faq } from '../data/faq';
+---
+<Base
+  titulo="Balcão na Web · Cardápio digital com painel de pedidos e impressão na cozinha"
+  descricao="Seu cardápio digital em endereço próprio e com QR Code. O cliente pede pelo celular, o pedido entra no seu painel em tempo real e a comanda sai impressa na cozinha. Salão e delivery no mesmo lugar, sem comissão por pedido."
+  caminho="/"
+  perguntas={faq}
+>
+  <Nav />
+  <main id="top">
+    <Hero />
+    <ComoFunciona />
+    <PorQue />
+    <Painel />
+    <EmBreve />
+    <Faq />
+    <CtaFinal />
+  </main>
+  <Footer />
+</Base>

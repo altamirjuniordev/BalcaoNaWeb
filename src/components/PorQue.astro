@@ -1,0 +1,41 @@
+---
+import Icon from './Icon.astro';
+import type { Nome } from './icones';
+
+const beneficios: { icone: Nome; titulo: string; texto: string }[] = [
+  { icone: 'money', titulo: 'Sem comissão por pedido',
+    texto: 'Vendeu mais? Você fica com tudo. Nenhum centavo de comissão sai do seu caixa, e não há contrato de fidelidade prendendo você.' },
+  { icone: 'phone', titulo: 'Sem app para instalar',
+    texto: 'Nem para o seu cliente, nem para você. O cardápio abre no navegador e o painel também — no computador do caixa ou no seu celular.' },
+  { icone: 'receipt', titulo: 'Comanda impressa sozinha',
+    texto: 'A cozinha recebe o papel sem ninguém apertar nada. Acabou a bobina? O painel avisa e a comanda sai assim que o papel volta — nenhum pedido se perde.' },
+  { icone: 'store', titulo: 'Salão e delivery juntos',
+    texto: 'Mesas numeradas na tela: o atendente lança o pedido na mesa com o mesmo cardápio, a conta acumula e fecha em dois toques com a forma de pagamento.' },
+  { icone: 'tag', titulo: 'Você vê o caixa do dia',
+    texto: 'Faturamento, ticket médio e mais vendidos, separados por mesa, delivery e retirada. Todo o histórico de pedidos fica salvo, com busca.' },
+  { icone: 'clock', titulo: 'A loja no seu controle',
+    texto: 'Horário de funcionamento por dia da semana, "fechar loja agora" quando apertar, e pausar um produto que acabou em dois toques. Some do cardápio na hora.' },
+];
+---
+<section class="section" id="por-que">
+  <div class="wrap">
+    <div class="section__head section__head--center">
+      <p class="section__kicker">Por que o Balcão na Web</p>
+      <h2 class="section__title">O delivery é seu. A margem também.</h2>
+      <p class="section__sub">
+        Marketplace cobra comissão de cada pedido e fica com o contato do seu
+        cliente. Aqui a venda é sua, do primeiro toque à comanda na cozinha.
+      </p>
+    </div>
+
+    <div class="benefits">
+      {beneficios.map((b) => (
+        <article class="benefit">
+          <div class="benefit__icon"><Icon nome={b.icone} /></div>
+          <h3 class="benefit__title">{b.titulo}</h3>
+          <p class="benefit__text">{b.texto}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

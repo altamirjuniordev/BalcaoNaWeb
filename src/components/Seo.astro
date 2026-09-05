@@ -1,0 +1,144 @@
+---
+/* ==========================================================================
+   SEO — <head> completo de uma pagina: meta, Open Graph, Twitter e JSON-LD.
+
+   Tudo que era caminho relativo ou estava duplicado no HTML antigo passa
+   por aqui. As URLs saem absolutas porque Open Graph exige isso: com
+   caminho relativo, WhatsApp e Facebook simplesmente nao mostram preview.
+   ========================================================================== */
+import { site } from '../data/site';
+import type { Pergunta } from '../data/faq';
+
+interface Props {
+  titulo: string;
+  descricao: string;
+  /** Caminho da pagina, ex.: "/cardapio-digital". Vira canonical + og:url. */
+  caminho?: string;
+  /** Quando presente, gera o FAQPage a partir da MESMA lista que a pagina mostra. */
+  perguntas?: Pergunta[];
+  /** noindex para paginas que nao devem entrar no indice. */
+  noindex?: boolean;
+}
+
+const { titulo, descricao, caminho = '/', perguntas, noindex = false } = Astro.props;
+
+/* A raiz mantem a barra final, as subpaginas nao — exatamente o que o
+   sitemap gera. Canonical e sitemap discordando e sinal contraditorio. */
+const alvo = new URL(caminho, site.dominio);
+const url = alvo.pathname === '/' ? alvo.href : alvo.href.replace(/\/$/, '');
+const ogImagem = new URL('/og.png', site.dominio).href;
+
+/* sameAs so entra com perfil real preenchido — perfil inventado atrapalha
+   em vez de ajudar o Google a reconhecer a entidade da marca. */
+const redes = [site.instagram, site.facebook].filter(Boolean);
+
+/* Um @graph com @id ligando as entidades: o Google entende que a
+   organizacao, o site e o software sao a mesma marca, em vez de tres
+   blocos soltos. */
+const grafo: Record<string, unknown>[] = [
+  {
+    '@type': 'Organization',
+    '@id': `${site.dominio}/#organizacao`,
+    name: site.nome,
+    url: site.dominio,
+    logo: {
+      '@type': 'ImageObject',
+      url: new URL('/favicon.svg', site.dominio).href,
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: site.cidade,
+      addressRegion: site.estado,
+      addressCountry: site.pais,
+    },
+    areaServed: { '@type': 'Country', name: 'Brasil' },
+    ...(redes.length ? { sameAs: redes } : {}),
+  },
+  {
+    '@type': 'WebSite',
+    '@id': `${site.dominio}/#site`,
+    url: site.dominio,
+    name: site.nome,
+    inLanguage: 'pt-BR',
+    publisher: { '@id': `${site.dominio}/#organizacao` },
+  },
+  {
+    '@type': 'WebPage',
+    '@id': `${url}/#pagina`,
+    url,
+    name: titulo,
+    description: descricao,
+    inLanguage: 'pt-BR',
+    isPartOf: { '@id': `${site.dominio}/#site` },
+  },
+  {
+    '@type': 'SoftwareApplication',
+    '@id': `${site.dominio}/#software`,
+    name: site.nome,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    url: site.dominio,
+    publisher: { '@id': `${site.dominio}/#organizacao` },
+    description:
+      'Cardápio digital com endereço próprio e QR Code, painel de pedidos em tempo real e impressão automática da comanda na cozinha. Atende salão, delivery e retirada, sem comissão por pedido.',
+    featureList: [
+      'Cardápio digital com QR Code e endereço próprio',
+      'Painel de pedidos em tempo real com alerta sonoro',
+      'Impressão automática da comanda na impressora térmica',
+      'Mesas do salão com conta acumulada',
+      'Delivery e retirada com taxa de entrega e pedido mínimo',
+      'Relatórios de faturamento, ticket médio e mais vendidos',
+    ],
+  },
+];
+
+if (perguntas?.length) {
+  grafo.push({
+    '@type': 'FAQPage',
+    '@id': `${url}/#faq`,
+    isPartOf: { '@id': `${url}/#pagina` },
+    mainEntity: perguntas.map((p) => ({
+      '@type': 'Question',
+      name: p.q,
+      acceptedAnswer: { '@type': 'Answer', text: p.a },
+    })),
+  });
+}
+
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grafo });
+---
+<title>{titulo}</title>
+<meta name="description" content={descricao} />
+<link rel="canonical" href={url} />
+
+{
+  noindex ? (
+    <meta name="robots" content="noindex, nofollow" />
+  ) : (
+    /* max-image-preview:large libera a miniatura grande na busca e no
+       Discover; sem isso o Google usa uma miniatura pequena. */
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+  )
+}
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={site.nome} />
+<meta property="og:title" content={titulo} />
+<meta property="og:description" content={descricao} />
+<meta property="og:url" content={url} />
+<meta property="og:image" content={ogImagem} />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Balcão na Web — cardápio digital, painel de pedidos e comanda impressa na cozinha" />
+<meta property="og:locale" content="pt_BR" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={titulo} />
+<meta name="twitter:description" content={descricao} />
+<meta name="twitter:image" content={ogImagem} />
+
+<script type="application/ld+json" set:html={jsonLd} is:inline />

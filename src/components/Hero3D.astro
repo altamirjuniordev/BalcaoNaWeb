@@ -1,0 +1,245 @@
+---
+import Icon from './Icon.astro';
+---
+{/* Composicao do painel: cartoes em camadas, tudo HTML/CSS/SVG — nenhuma
+    imagem, nada para baixar. Os valores finais ja vem escritos no HTML e o
+    JS zera para animar, entao sem JS a peca continua completa e legivel. */}
+<div class="hero3d" id="hero3d">
+  <div class="hero3d__stage" role="img" aria-label="Ilustração do painel do lojista: 128 pedidos hoje, faturamento do dia, resumo de vendas da semana, lista de pedidos com status, formas de pagamento e o cardápio aberto no celular do cliente.">
+
+    <!-- ---------------------------------------------- painel principal -->
+    <div class="h3-layer h3-layer--dash">
+      <div class="h3-float" style="--dur:6.4s;--off:-0.8s">
+        <article class="h3-card h3-enter">
+          <header class="h3-head">
+            <span>
+              <span class="h3-head__title">Painel · Boteco da Brasa</span>
+              <span class="h3-head__sub">Hoje, até agora</span>
+            </span>
+            <span class="h3-live">Ao vivo</span>
+          </header>
+
+          <div class="h3-kpis">
+            <div class="h3-kpi">
+              <span class="h3-kpi__label">Pedidos hoje</span>
+              <span class="h3-kpi__row">
+                <span class="h3-kpi__val" data-kpi="pedidos" data-count="128">128</span>
+                <span class="h3-delta">+18%</span>
+              </span>
+            </div>
+            <div class="h3-kpi">
+              <span class="h3-kpi__label">Faturamento</span>
+              <span class="h3-kpi__row">
+                <span class="h3-kpi__val" data-kpi="caixa" data-count="4890.5" data-format="brl">R$ 4.890,50</span>
+                <span class="h3-delta">+22%</span>
+              </span>
+            </div>
+            <div class="h3-kpi">
+              <span class="h3-kpi__label">Ticket médio</span>
+              <span class="h3-kpi__row">
+                <span class="h3-kpi__val" data-count="38.2" data-format="brl">R$ 38,20</span>
+                <span class="h3-delta">+12%</span>
+              </span>
+            </div>
+            <div class="h3-kpi">
+              <span class="h3-kpi__label">Mesas abertas</span>
+              <span class="h3-kpi__row">
+                <span class="h3-kpi__val" data-count="7">7</span>
+                <span class="h3-kpi__val"><small>de 12</small></span>
+              </span>
+            </div>
+          </div>
+
+          <div class="h3-chart">
+            <div class="h3-chart__head">
+              <span class="h3-chart__title">Resumo de vendas</span>
+              <span class="h3-chart__hint">últimos 7 dias</span>
+            </div>
+
+            <svg viewBox="0 0 320 72" aria-hidden="true" focusable="false">
+              <defs>
+                <linearGradient id="h3-stroke" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#FF5A1F" stop-opacity=".45"/>
+                  <stop offset="1" stop-color="#FF8A5C"/>
+                </linearGradient>
+                <linearGradient id="h3-fill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#FF5A1F" stop-opacity=".34"/>
+                  <stop offset="1" stop-color="#FF5A1F" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+
+              <path class="h3-area" d="M6,54 C23,54 40,44 57,44 C74,44 91,48 108,48 C125,48 142,30 159,30 C176,30 193,20 210,20 C227,20 244,11 261,11 C278,11 295,26 312,26 L312,72 L6,72 Z"/>
+              <path class="h3-line" d="M6,54 C23,54 40,44 57,44 C74,44 91,48 108,48 C125,48 142,30 159,30 C176,30 193,20 210,20 C227,20 244,11 261,11 C278,11 295,26 312,26"/>
+              <circle class="h3-dot" cx="261" cy="11" r="4"/>
+            </svg>
+
+            <div class="h3-days">
+              <span>seg</span><span>ter</span><span>qua</span><span>qui</span>
+              <span>sex</span><span>sáb</span><span>dom</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- ----------------------------------------------------- faturamento -->
+    <div class="h3-layer h3-layer--rev">
+      <div class="h3-float" style="--dur:5.8s;--off:-3.4s">
+        <article class="h3-card h3-enter">
+          <span class="h3-kpi__label">Faturamento · 7 dias</span>
+          <span class="h3-kpi__row">
+            <span class="h3-kpi__val" data-count="24780.5" data-format="brl">R$ 24.780,50</span>
+          </span>
+          <span class="h3-delta" style="margin-top:6px;display:inline-block">+23,6%</span>
+
+          <svg viewBox="0 0 164 40" aria-hidden="true" focusable="false" style="margin-top:8px">
+            <path class="h3-line" data-delay="220ms" stroke-width="2"
+                  d="M4,32 C17,32 30,24 43,24 C56,24 69,28 82,28 C95,28 108,14 121,14 C134,14 147,7 160,7"/>
+          </svg>
+
+          <div class="h3-bars" aria-hidden="true">
+            <i style="height:38%"></i><i style="height:52%"></i><i style="height:44%"></i>
+            <i style="height:66%"></i><i style="height:58%"></i><i style="height:74%"></i>
+            <i style="height:62%"></i><i style="height:82%"></i><i style="height:70%"></i>
+            <i style="height:88%"></i><i style="height:96%"></i><i style="height:78%"></i>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- ---------------------------------------------- formas de pagamento -->
+    <div class="h3-layer h3-layer--pay">
+      <div class="h3-float" style="--dur:6.9s;--off:-1.6s">
+        <article class="h3-card h3-enter">
+          <header class="h3-head">
+            <span class="h3-head__title">Formas de pagamento</span>
+          </header>
+
+          <div class="h3-donut">
+            <svg viewBox="0 0 74 74" aria-hidden="true" focusable="false">
+              <circle cx="37" cy="37" r="28" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="9"/>
+              <circle class="h3-seg" cx="37" cy="37" r="28" stroke="#FF5A1F" data-pct="58" style="--rot:-90deg"    stroke-dasharray="99.04 76.89"/>
+              <circle class="h3-seg" cx="37" cy="37" r="28" stroke="#35C77B" data-pct="30" style="--rot:118.8deg"  stroke-dasharray="49.78 126.15"/>
+              <circle class="h3-seg" cx="37" cy="37" r="28" stroke="#6E6663" data-pct="12" style="--rot:226.8deg"  stroke-dasharray="18.11 157.82"/>
+            </svg>
+
+            <div class="h3-leg">
+              <span><i style="background:#FF5A1F"></i>Cartão <b>58%</b></span>
+              <span><i style="background:#35C77B"></i>PIX <b>30%</b></span>
+              <span><i style="background:#6E6663"></i>Dinheiro <b>12%</b></span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- ---------------------------------------------------------- pedidos -->
+    <div class="h3-layer h3-layer--orders">
+      <div class="h3-float" style="--dur:6.1s;--off:-4.2s">
+        <article class="h3-card h3-enter">
+          <header class="h3-head">
+            <span class="h3-head__title">Pedidos</span>
+            <span class="h3-live">Tempo real</span>
+          </header>
+
+          <div class="h3-orders">
+            <div class="h3-order">
+              <span class="h3-pill h3-pill--recebido">Recebido</span>
+              <span class="h3-order__body">
+                <span class="h3-order__id">#128 · Mesa 7</span>
+                <span class="h3-order__meta">3 itens · há 12 segundos</span>
+              </span>
+              <span class="h3-order__val">R$ 74,00</span>
+            </div>
+            <div class="h3-order">
+              <span class="h3-pill h3-pill--preparando">Preparando</span>
+              <span class="h3-order__body">
+                <span class="h3-order__id">#127 · Delivery</span>
+                <span class="h3-order__meta">5 itens · há 2 minutos</span>
+              </span>
+              <span class="h3-order__val">R$ 63,40</span>
+            </div>
+            <div class="h3-order">
+              <span class="h3-pill h3-pill--enviado">Enviado</span>
+              <span class="h3-order__body">
+                <span class="h3-order__id">#126 · Delivery</span>
+                <span class="h3-order__meta">4 itens · há 9 minutos</span>
+              </span>
+              <span class="h3-order__val">R$ 52,30</span>
+            </div>
+            <div class="h3-order">
+              <span class="h3-pill h3-pill--concluido">Concluído</span>
+              <span class="h3-order__body">
+                <span class="h3-order__id">#125 · Retirada</span>
+                <span class="h3-order__meta">2 itens · há 14 minutos</span>
+              </span>
+              <span class="h3-order__val">R$ 41,80</span>
+            </div>
+          </div>
+
+          <p class="h3-foot"><span>Comandas impressas</span><strong>128/128</strong></p>
+        </article>
+      </div>
+    </div>
+
+    <!-- ------------------------------------------- o celular do cliente -->
+    <div class="h3-layer h3-layer--phone">
+      <div class="h3-float" style="--dur:7.2s;--off:-2.8s">
+        <div class="h3-phone h3-enter">
+          <div class="h3-phone__screen">
+            <div class="h3-phone__bar">
+              <span class="h3-phone__mark"></span>
+              <span>
+                <span class="h3-phone__name">Boteco da Brasa</span>
+                <span class="h3-phone__open">Aberto agora</span>
+              </span>
+            </div>
+
+            <div class="h3-cats">
+              <span class="h3-chip is-on">Destaques</span>
+              <span class="h3-chip">Lanches</span>
+              <span class="h3-chip">Bebidas</span>
+            </div>
+
+            <div class="h3-item">
+              <span class="h3-item__thumb">🍔</span>
+              <span class="h3-item__name">Smash Duplo</span>
+              <span class="h3-item__price">R$ 36,90</span>
+            </div>
+            <div class="h3-item">
+              <span class="h3-item__thumb">🍟</span>
+              <span class="h3-item__name">Batata Rústica</span>
+              <span class="h3-item__price">R$ 12,90</span>
+            </div>
+            <div class="h3-item">
+              <span class="h3-item__thumb">🥤</span>
+              <span class="h3-item__name">Refrigerante</span>
+              <span class="h3-item__price">R$ 6,50</span>
+            </div>
+            <div class="h3-item">
+              <span class="h3-item__thumb">🍫</span>
+              <span class="h3-item__name">Brigadeiro</span>
+              <span class="h3-item__price">R$ 7,90</span>
+            </div>
+
+            <div class="h3-phone__cta">Ver pedido · R$ 64,20</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ------------------------------------------------------------ toast -->
+    <div class="h3-layer h3-layer--toast">
+      <div class="h3-float">
+        <div class="h3-toast">
+          <span class="h3-toast__icon"><Icon nome="receipt" /></span>
+          <span>
+            <span class="h3-toast__title">Pedido #128 no painel</span>
+            <span class="h3-toast__text">Comanda impressa na cozinha</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

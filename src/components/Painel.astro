@@ -1,0 +1,78 @@
+---
+import Icon from './Icon.astro';
+
+const comanda = `     BOTECO DA BRASA
+================================
+PEDIDO #128            19:42
+MESA 7
+--------------------------------
+1x SMASH DUPLO
+   + Bacon crocante
+   OBS: sem cebola
+
+2x BATATA COM CHEDDAR
+--------------------------------
+TOTAL               R$ 74,00
+================================
+   Balcao na Web`;
+---
+<section class="section section--tint" id="painel">
+  <div class="wrap">
+    <div class="section__head">
+      <p class="section__kicker">Veja funcionando</p>
+      <h2 class="section__title">O pedido entra no painel e a cozinha já sabe</h2>
+      <p class="section__sub">
+        Nada de decifrar áudio de 40 segundos, anotar em papel ou ficar
+        conferindo o celular. O quadro de pedidos toca, e a comanda já está
+        saindo na impressora.
+      </p>
+    </div>
+
+    <div class="demo">
+      <div class="shot">
+        <p class="shot__label">Quadro de pedidos · em tempo real</p>
+
+        <div class="order" data-state="novo">
+          <span class="order__flag">Novo</span>
+          <span class="order__body">
+            <span class="order__title">#128 · Mesa 7</span>
+            <span class="order__meta">3 itens · há 12 segundos</span>
+          </span>
+          <span class="order__value">R$ 74,00</span>
+        </div>
+
+        <div class="order" data-state="preparo">
+          <span class="order__flag order__flag--preparo">Em preparo</span>
+          <span class="order__body">
+            <span class="order__title">#127 · Delivery</span>
+            <span class="order__meta">Boa Viagem · 2 itens</span>
+          </span>
+          <span class="order__value">R$ 58,40</span>
+        </div>
+
+        <div class="order" data-state="pronto">
+          <span class="order__flag order__flag--pronto">Pronto</span>
+          <span class="order__body">
+            <span class="order__title">#126 · Retirada</span>
+            <span class="order__meta">Aguardando o cliente</span>
+          </span>
+          <span class="order__value">R$ 31,50</span>
+        </div>
+
+        <p class="shot__total"><span>Caixa de hoje · 34 pedidos</span><span>R$ 1.842,60</span></p>
+      </div>
+
+      <div class="shot shot--printer">
+        <p class="shot__label">Comanda na cozinha · automática</p>
+
+        <div class="comanda" role="img" aria-label="Comanda impressa do pedido 128, mesa 7: 1 Smash Duplo com bacon e sem cebola, 2 batatas com cheddar, total R$ 74,00">
+          <pre class="comanda__paper">{comanda}</pre>
+        </div>
+
+        <p class="comanda__note"><Icon nome="checkCircle" />
+          Sai sozinha em ~2 segundos. Sem papel, o painel avisa e reimprime depois.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

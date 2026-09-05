@@ -1,0 +1,23 @@
+{
+  "name": "balcao-na-web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "og": "node scripts/gerar-og.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "astro": "^5.1.1"
+  },
+  "devDependencies": {
+    "@fontsource-variable/inter": "^5.1.1",
+    "@fontsource-variable/sora": "^5.1.1",
+    "lightningcss": "^1.33.0",
+    "sharp": "^0.33.5"
+  }
+}

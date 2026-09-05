@@ -3,170 +3,172 @@
 Landing institucional do Balcão na Web: cardápio digital com painel de pedidos
 em tempo real e comanda impressa automaticamente na cozinha.
 
-O **sistema em si (cardápio + painel) roda à parte**. Esta página só apresenta
-o produto e leva o lojista para a conversa no WhatsApp.
+O **sistema em si (cardápio + painel) roda à parte**, no app Next.js. Esta
+página só apresenta o produto e leva o lojista para a conversa no WhatsApp.
+
+Site estático gerado com [Astro](https://astro.build): o build produz HTML puro,
+sem servidor de aplicação e sem framework no navegador.
 
 ---
 
 ## Como rodar
 
-Site estático puro — HTML, CSS e JS, sem build e sem dependência.
-
 ```bash
-node servidor.js
-# http://localhost:5173
+npm install
+npm run dev      # http://localhost:4321
 ```
 
-`servidor.js` é só para desenvolvimento. Em produção basta subir a pasta em
-qualquer hospedagem estática (Netlify, Vercel, GitHub Pages, S3, cPanel).
+| Comando | O que faz |
+|---|---|
+| `npm run dev` | servidor de desenvolvimento, com recarga automática |
+| `npm run build` | gera o site em `dist/` |
+| `npm run preview` | serve o `dist/` como ficará em produção |
+| `npm run og` | regera `public/og.png` a partir de `src/og-fonte.svg` |
 
 ---
 
 ## A única configuração pendente
 
-No topo dos scripts, em `index.html`:
+Em **`src/data/site.ts`**:
 
-```js
-window.BW_LANDING = {
-  urlDemo: 'https://titus.balcaonaweb.com.br',
-  whatsappContato: '',     // ← FALTA ISTO: 55 + DDD + número, só dígitos
-  mensagemContato: 'Olá! Vi o site do Balcão na Web e quero ver o sistema funcionando na minha loja.'
-};
+```ts
+whatsapp: '',   // ← FALTA ISTO: 55 + DDD + número, só dígitos
 ```
 
-- **`whatsappContato`** alimenta os 4 botões "Quero ver funcionando" (nav, hero,
-  CTA final e rodapé). Preenchido, todos viram link de WhatsApp com a mensagem
-  já escrita. **Enquanto estiver vazio, eles seguem como âncora interna** — a
-  página funciona, mas não converte.
-- **`urlDemo`** já aponta para o cardápio do Titu's Burger e alimenta os 6 links
-  de "Ver cardápio de exemplo", incluindo os do rodapé.
+Alimenta os 4 botões "Quero ver funcionando" (nav, hero, CTA final e rodapé).
+Preenchido, todos viram link de WhatsApp com a mensagem já escrita. **Enquanto
+estiver vazio, eles seguem como âncora interna** — a página funciona, mas não
+converte.
 
-Ambos abrem em nova aba com `rel="noopener"`.
-
----
-
-## Estrutura da página
-
-1. **Nav** fixa — Como funciona · Por que · O painel · Dúvidas + CTA
-2. **Hero** — a promessa real, ao lado da composição 3D do painel
-3. **Como funciona** — 3 passos: cadastramos seu cardápio · o cliente pede pelo
-   link ou QR Code · o pedido cai no painel e sai impresso
-4. **Por que** — 6 cards: sem comissão, sem app, comanda automática, salão +
-   delivery, caixa do dia, controle da loja
-5. **O painel** — quadro de pedidos em tempo real ao lado da comanda saindo da
-   impressora térmica
-6. **Em breve** — cliente pedindo da própria mesa pelo QR Code
-7. **Dúvidas** — 7 perguntas em `<details>` nativo
-8. **CTA final** — "preço fixo mensal, sem comissão" + rodapé
+No mesmo arquivo ficam domínio, URLs do app e da demo, cidade e redes sociais.
+`instagram` e `facebook` preenchidos entram no `sameAs` do schema, que ajuda o
+Google a ligar o site à entidade da marca.
 
 ---
 
-## Regras de conteúdo
-
-A página descreve **apenas** o que o produto faz hoje. Nada aqui pode voltar
-sem existir de verdade:
-
-- O pedido **não** vai para o WhatsApp — vai para o painel e para a impressora.
-  O WhatsApp aparece só como canal de contato comercial.
-- **Sem** cupons, taxa por bairro, multi-loja, usuários/permissões, tabela de
-  planos, autocadastro ou "crie grátis" — o onboarding é feito por vocês.
-- **Sem número inventado.** A barra de destaques do hero usa só fatos: 0% de
-  comissão, ~2 segundos até a comanda, salão + delivery, feito em Recife.
-- **Sem prova social** enquanto não houver depoimento real. A seção de
-  depoimentos foi removida, não escondida.
-
-Os valores que aparecem dentro dos mockups (preços do cardápio no celular,
-pedidos do painel, total da comanda) são ilustração de interface, como em
-qualquer print de produto — não são afirmações sobre o negócio.
-
----
-
-## Estrutura de arquivos
+## Estrutura
 
 ```
-index.html                  a página inteira
-servidor.js                 servidor estático local (dev)
-assets/
-├── css/
-│   ├── tokens.css          cores, tipografia, espaço, raio, sombra, tema escuro
-│   ├── base.css            reset, botões, campos, selos, utilitários
-│   ├── landing.css         nav, hero, seções, painel, comanda, FAQ, rodapé
-│   └── hero3d.css          só a composição 3D do hero (paleta própria)
-├── js/
-│   ├── core/utils.js       DOM, storage, prefers-reduced-motion
-│   ├── core/icones.js      SVG inline (sem biblioteca de ícones)
-│   ├── landing.js          ícones, links, tema, sombra da nav, revelação
-│   └── hero3d.js           entrada, count-up, gráficos, pedidos ao vivo, parallax
-└── img/                    favicon e imagem Open Graph
+src/
+  data/
+    site.ts          configuração central (WhatsApp, domínio, URLs, local)
+    faq.ts           perguntas — fonte única do <details> E do JSON-LD
+  layouts/Base.astro <head>, fontes, tema, scripts
+  components/
+    Seo.astro        meta, Open Graph, Twitter e JSON-LD de uma página
+    Icon.astro       + icones.ts — SVG inline, sem JS
+    Nav / Hero / Hero3D / ComoFunciona / PorQue / Painel / EmBreve /
+    Faq / CtaFinal / Footer
+  styles/
+    tokens.css       design tokens (cor, tipo, espaço, sombra) — não mexi
+    base.css         reset e componentes base — não mexi
+    landing.css      seções da landing — não mexi
+    hero3d.css       composição do painel — não mexi
+    fontes.css       @font-face das fontes self-hosted
+    ajustes.css      o que precisou de CSS porque saiu do JS
+  scripts/
+    utils.js         helpers (7 funções, era 20)
+    landing.js       tema, sombra da nav, revelação ao rolar
+    hero3d.js        animação da composição do painel
+  pages/index.astro
+public/
+  og.png             imagem de compartilhamento (1200×630)
+  robots.txt  favicon.svg  fonts/
+deploy/
+  Caddyfile          bloco do apex + redirect do www
+  publicar.sh        build + rsync para o VPS
 ```
 
-> `assets/img/produtos/` sobrou do mockup antigo de celular e não é mais
-> referenciada por nada. Pode apagar.
+O design não foi alterado: os quatro CSS originais estão intactos e tudo que
+mudou está em `ajustes.css`.
 
 ---
 
-## Decisões que valem saber
+## Publicar
 
-**Todos os mockups são HTML, não imagem.** A composição do hero, o celular e a
-comanda térmica ficam nítidos em qualquer tela, pesam quase nada e dão para
-editar sem abrir editor de imagem. Todos têm `role="img"` e `aria-label`.
+```bash
+bash deploy/publicar.sh
+```
 
-**A composição do hero tem três transforms empilhados, de propósito.** Cada peça
-é `.h3-layer` (posição + `translateZ`), `.h3-float` (flutuação idle) e
-`.h3-enter` (entrada com stagger). Separados assim, o parallax, a flutuação e a
-entrada nunca sobrescrevem um ao outro — o bug clássico de animar transform em
-três lugares no mesmo elemento.
+Faz o build, envia o `dist/` por rsync e recarrega o Caddy. Ajuste `SERVIDOR`
+e `DESTINO` no topo do script (ou passe por variável de ambiente).
 
-**O parallax gira o palco inteiro, não cada cartão.** Com `perspective` no pai e
-`preserve-3d` no palco, a profundidade de cada camada já vem do `translateZ`: a
-perspectiva desloca cada uma por conta própria. São duas variáveis de rotação
-por frame em vez de cinco transforms.
-
-**O palco é medido, não chutado.** Ele é desenhado em 520×640 fixos e o JS
-calcula `--stg-s` pela largura real da coluna (que varia continuamente entre
-1024 e 1280). Abaixo de 900px vira empilhado: dois cartões, sem parallax, mesma
-entrada e mesmo count-up.
-
-**Os valores animados já vêm escritos no HTML.** O JS zera para contar; sem JS a
-peça aparece completa. Vale para os KPIs, a linha do gráfico e o donut.
-
-**A comanda parece papel por contraste, não por textura.** O cartão fica cor de
-creme e o papel branco por cima — é isso que faz a serrilha do picote aparecer.
-No modo escuro o papel continua branco, porque bobina térmica é branca.
-
-**A serrilha é gradiente, não `mask`.** Duas camadas de `mask-image` se somam em
-vez de recortar, e o resultado seria uma borda reta; meias-luas desenhadas com
-`radial-gradient` sobre a base do papel resolvem.
-
-**Tokens como fonte única** (`tokens.css`): terracota `#E8552A` como primária,
-neutros creme, verde reservado para confirmações. Trocar a identidade = trocar o
-bloco `--brand-*`. O modo escuro redefine só variáveis; nenhum componente conhece
-o tema.
-
-**A revelação ao rolar tem rede de segurança.** As seções entram com fade, mas se
-o `IntersectionObserver` não disparar, um timer revela tudo depois do `load`.
-
-**FAQ em `<details>` nativo**: abre sem JS, é indexável pelo Google e já vem com
-teclado e leitor de tela funcionando.
-
-**SEO** — `SoftwareApplication` com `featureList` (sem preço e sem nota, que não
-existem) e `FAQPage` em JSON-LD. Open Graph com imagem própria, já reescrita para
-a promessa nova.
+**Antes do primeiro deploy**, cole os dois blocos de `deploy/Caddyfile` no
+Caddyfile do VPS. Eles precisam vir junto com o bloco `*.balcaonaweb.com.br`
+dos clientes — o Caddy casa o nome mais específico primeiro, então o apex
+passa a servir a landing e o resto continua indo para o Next.js.
 
 ---
 
-## Próximos passos sugeridos
+## O que mudou em relação à versão anterior
 
-1. **Preencher `whatsappContato`.** É o que falta para a página converter.
-2. **Depoimento do Titu's Burger** — a seção de prova social só volta com cliente
-   real, com nome e, de preferência, um número que ele mesmo autorize.
-3. **Print ou vídeo do painel de verdade** — o mockup atual é fiel, mas a tela
-   real (com o som tocando) vende mais.
-4. **Analytics e pixel** — GA4 + Meta Pixel com evento por CTA, para saber qual
-   seção leva ao WhatsApp.
-5. **Valores dos planos** — quando definidos, a frase do CTA final vira uma
-   tabela curta.
-6. **Página por segmento** — `/hamburguerias`, `/pizzarias`, com headline e
-   depoimento específicos. Os links do rodapé já existem para isso.
-7. **Trocar o mockup pelo painel real** — a composição do hero é fiel, mas um
-   print ou vídeo da tela verdadeira vende mais quando ela estiver pronta.
+### Performance
+
+| Antes | Agora |
+|---|---|
+| Google Fonts por `<link>`: 2 origens externas, ~3 idas e voltas antes do primeiro texto | fontes variáveis self-hosted, com `preload` e `font-display: swap` |
+| 4 CSS separados, 47 KB sem minificar | 1 CSS minificado, 7,7 KB com gzip |
+| 4 JS separados, 29 KB sem minificar | 1 módulo com `defer`, 2,8 KB com gzip |
+| 35 ícones baixados por JS para usar 10, injetados depois do carregamento | 10 SVG inline no HTML, zero JS, zero layout shift |
+| `utils.js` com 20 funções, 13 sem uso na landing | 7 funções |
+| tema lido no fim do `<body>` → flash branco a cada carregamento | script inline no `<head>`, sem flash |
+| conteúdo escondido por `style` inline escrito pelo JS | estado inicial no CSS, sob a classe `js` |
+
+### SEO
+
+- **`og:image` era `.svg`** — WhatsApp, Facebook, LinkedIn e Twitter não
+  renderizam SVG. Todo link compartilhado aparecia sem imagem. Agora é PNG.
+- **`og:image` era caminho relativo** — Open Graph exige URL absoluta. Segundo
+  motivo do preview quebrar.
+- **FAQ dessincronizada**: 7 perguntas na página, 6 no JSON-LD. Agora saem da
+  mesma lista (`src/data/faq.ts`), então não dá mais para divergir.
+- **`sitemap.xml` dava 404** — agora é gerado no build e o `robots.txt` aponta
+  para ele.
+- **Schema ampliado**: era `SoftwareApplication` + `FAQPage` soltos; agora é um
+  `@graph` ligando `Organization` (com endereço em Recife), `WebSite`,
+  `WebPage`, `SoftwareApplication` e `FAQPage` pelo `@id`.
+- **`og:url`, `twitter:title`/`description`/`image`** e
+  `robots: max-image-preview:large` (libera a miniatura grande na busca).
+- **Canonical e sitemap concordando** na barra final.
+
+### Limpeza
+
+- 4 SVG em `assets/img/produtos/` que nenhum arquivo referenciava.
+- `servidor.js`, que anunciava um `/cardapio.html` inexistente.
+
+---
+
+## Pendências fora deste repositório
+
+Estas dependem do app Next.js ou do painel da Cloudflare, não deste projeto:
+
+1. **`app.balcaonaweb.com.br` está indexável.** É tela de login, não tem nada
+   a ranquear, e página de login indexada só dilui o domínio. Adicionar no
+   `<head>` do app:
+   ```html
+   <meta name="robots" content="noindex, nofollow">
+   ```
+
+2. **Duas marcas para o mesmo produto.** O app se chama "Cardápio Fácil"
+   (`<title>Cardápio Fácil — Painel</title>`) e o site se chama "Balcão na
+   Web". Isso divide a autoridade da marca e confunde quem chega pelo Google.
+   Vale escolher um nome e usar em tudo.
+
+3. **Subdomínios dos clientes** (`titus.balcaonaweb.com.br` e os próximos)
+   devem ter `<link rel="canonical">` apontando para eles mesmos, para não
+   competirem entre si nem com o apex.
+
+4. **Cache na Cloudflare**: hoje o apex responde `cf-cache-status: DYNAMIC` e
+   `Cache-Control: no-store`. Servindo a landing estática pelo Caddy isso já
+   melhora; uma Cache Rule para o apex faria a Cloudflare servir direto da
+   borda.
+
+---
+
+## Otimização ainda possível
+
+As fontes somam 82 KB — o maior item do peso da página. Dá para cortar boa
+parte com subsetting (`subset-font` no build, restringindo o eixo de peso a
+400–800). Não fiz porque as fontes carregam com `swap` (não seguram o texto),
+ficam em cache por um ano e o subsetting por caractere quebra quando entram
+páginas novas. Vale reavaliar se o site crescer e o peso incomodar.

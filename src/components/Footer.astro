@@ -1,0 +1,62 @@
+---
+import Icon from './Icon.astro';
+import { site, linkContato } from '../data/site';
+
+const contato = linkContato();
+const ano = new Date().getFullYear();
+---
+<footer class="lp-footer">
+  <div class="wrap">
+    <div class="lp-footer__grid">
+      <div>
+        <a class="lp-logo" href="/">
+          <span class="lp-logo__mark" aria-hidden="true"><Icon nome="store" /></span>
+          {site.nome}
+        </a>
+        <p class="lp-footer__text">
+          Cardápio digital, painel de pedidos e comanda impressa na cozinha.
+          Para restaurantes, lanchonetes e pizzarias que querem vender direto,
+          sem intermediário mordendo a margem.
+        </p>
+      </div>
+
+      <div class="lp-footer__col">
+        <h2>Produto</h2>
+        <ul>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#por-que">Por que o Balcão na Web</a></li>
+          <li><a href="#painel">O painel e a cozinha</a></li>
+          <li><a href={site.urlDemo} target="_blank" rel="noopener">Cardápio de exemplo</a></li>
+        </ul>
+      </div>
+
+      <div class="lp-footer__col">
+        <h2>Para quem é</h2>
+        <ul>
+          <li><a href="#por-que">Hamburguerias</a></li>
+          <li><a href="#por-que">Pizzarias</a></li>
+          <li><a href="#por-que">Açaíterias</a></li>
+          <li><a href="#por-que">Restaurantes e marmitarias</a></li>
+        </ul>
+      </div>
+
+      <div class="lp-footer__col">
+        <h2>Falar com a gente</h2>
+        <ul>
+          <li>
+            <a href={contato.href} {...contato.externo ? { target: '_blank', rel: 'noopener' } : {}}
+            >Quero ver funcionando</a>
+          </li>
+          <li><a href="#duvidas">Dúvidas frequentes</a></li>
+          <li><a href="#preco">Preço</a></li>
+          <li><a href={site.urlApp} target="_blank" rel="noopener">Entrar no painel</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="lp-footer__bottom">
+      <span>© {ano} {site.nome}</span>
+      <span>Feito em {site.cidade} · primeira loja no ar: Titu's Burger</span>
+    </div>
+  </div>
+</footer>

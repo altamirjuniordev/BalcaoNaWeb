@@ -1,0 +1,28 @@
+/* ==========================================================================
+   Fontes — self-hosted.
+
+   Antes vinham do Google Fonts por <link>: duas origens externas
+   (fonts.googleapis.com e fonts.gstatic.com), cada uma com DNS + TLS, e a
+   folha de estilo bloqueava a renderizacao antes mesmo de comecar a baixar
+   o arquivo da fonte. Eram tres idas e voltas antes do primeiro texto.
+
+   Agora sao arquivos variaveis no mesmo dominio, com preload no <head>:
+   comecam a baixar junto com o HTML. Um arquivo por familia cobre todos os
+   pesos usados (600/700/800 na Sora, 400/500/600/700 na Inter).
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Sora Variable';
+  font-style: normal;
+  font-weight: 100 800;         /* eixo do arquivo variavel */
+  font-display: swap;           /* texto visivel na hora, na fonte de sistema */
+  src: url('/fonts/sora-latin-var.woff2') format('woff2-variations');
+}
+
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin-var.woff2') format('woff2-variations');
+}
