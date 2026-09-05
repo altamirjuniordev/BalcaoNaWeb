@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Balcão na Web · Cardápio digital com painel de pedidos e impressão na cozinha</title>
+<meta name="description" content="Seu cardápio digital em endereço próprio e com QR Code. O cliente pede pelo celular, o pedido entra no seu painel em tempo real e a comanda sai impressa na cozinha. Salão e delivery no mesmo lugar, sem comissão por pedido.">
+<meta name="theme-color" content="#E8552A" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14100E" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Balcão na Web">
+<meta property="og:title" content="Balcão na Web · Do cardápio à cozinha, sem comissão">
+<meta property="og:description" content="O cliente pede pelo link ou QR Code, o pedido entra no painel em tempo real e a comanda sai impressa na cozinha em segundos. Salão e delivery no mesmo sistema.">
+<meta property="og:image" content="assets/img/og-balcao.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://balcaonaweb.com.br/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/landing.css">
+<link rel="stylesheet" href="assets/css/hero3d.css">
+</head>
+
+<body>
+<a class="skip-link" href="#como-funciona">Pular para o conteúdo</a>
+
+<!-- =============================================================== NAV == -->
+<header class="lp-nav" id="lp-nav">
+  <div class="lp-nav__inner">
+    <a class="lp-logo" href="#top">
+      <span class="lp-logo__mark" id="logo-mark" aria-hidden="true"></span>
+      Balcão na Web
+    </a>
+
+    <nav class="lp-nav__links" aria-label="Seções da página">
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#por-que">Por que</a>
+      <a href="#painel">O painel</a>
+      <a href="#duvidas">Dúvidas</a>
+    </nav>
+
+    <div class="lp-nav__cta" style="display:flex;gap:8px;align-items:center">
+      <button type="button" class="icon-btn" id="theme-toggle" aria-label="Alternar tema"></button>
+      <a class="btn btn--primary btn--sm" data-link="contato" href="#preco">Quero ver funcionando</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- ============================================================ HERO == -->
+  <section class="hero">
+    <div class="wrap hero__inner">
+      <div>
+        <p class="eyebrow"><span class="eyebrow__dot"></span> Sem comissão por pedido</p>
+
+        <h1 class="hero__title">
+          Do cardápio no celular do cliente à <em>comanda impressa na cozinha</em>
+        </h1>
+
+        <p class="hero__sub">
+          Seu cardápio digital em endereço próprio, com QR Code. O cliente pede
+          pelo celular — sem app, sem cadastro, sem senha. O pedido entra no seu
+          painel na hora e a comanda sai sozinha na impressora da cozinha.
+        </p>
+
+        <div class="hero__cta">
+          <a class="btn btn--primary btn--lg" data-link="contato" href="#preco">Quero ver funcionando</a>
+          <a class="btn btn--outline btn--lg" data-link="demo" href="#como-funciona">Ver cardápio de exemplo</a>
+        </div>
+
+        <p class="hero__note" id="hero-note">
+          Nós cadastramos seu cardápio · Sem contrato de fidelidade
+        </p>
+
+        <div class="trustbar">
+          <div class="trustbar__item">
+            <span class="trustbar__num">0%</span>
+            <span class="trustbar__label">de comissão por pedido</span>
+          </div>
+          <div class="trustbar__item">
+            <span class="trustbar__num">~2 seg</span>
+            <span class="trustbar__label">do pedido à comanda na cozinha</span>
+          </div>
+          <div class="trustbar__item">
+            <span class="trustbar__num">Salão<br>+ delivery</span>
+            <span class="trustbar__label">no mesmo sistema</span>
+          </div>
+          <div class="trustbar__item">
+            <span class="trustbar__num">Recife</span>
+            <span class="trustbar__label">feito aqui, com lojista de verdade</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Composição do painel: cartões em camadas, tudo HTML/CSS/SVG.
+           Valores finais já vêm escritos aqui — o JS zera para animar, então
+           sem JS a peça continua completa. -->
+      <div class="hero3d" id="hero3d">
+        <div class="hero3d__stage" role="img" aria-label="Ilustração do painel do lojista: 128 pedidos hoje, faturamento do dia, resumo de vendas da semana, lista de pedidos com status, formas de pagamento e o cardápio aberto no celular do cliente.">
+
+          <!-- ---------------------------------------------- painel principal -->
+          <div class="h3-layer h3-layer--dash">
+            <div class="h3-float" style="--dur:6.4s;--off:-0.8s">
+              <article class="h3-card h3-enter">
+                <header class="h3-head">
+                  <span>
+                    <span class="h3-head__title">Painel · Boteco da Brasa</span>
+                    <span class="h3-head__sub">Hoje, até agora</span>
+                  </span>
+                  <span class="h3-live">Ao vivo</span>
+                </header>
+
+                <div class="h3-kpis">
+                  <div class="h3-kpi">
+                    <span class="h3-kpi__label">Pedidos hoje</span>
+                    <span class="h3-kpi__row">
+                      <span class="h3-kpi__val" data-kpi="pedidos" data-count="128">128</span>
+                      <span class="h3-delta">+18%</span>
+                    </span>
+                  </div>
+                  <div class="h3-kpi">
+                    <span class="h3-kpi__label">Faturamento</span>
+                    <span class="h3-kpi__row">
+                      <span class="h3-kpi__val" data-kpi="caixa" data-count="4890.5" data-format="brl">R$ 4.890,50</span>
+                      <span class="h3-delta">+22%</span>
+                    </span>
+                  </div>
+                  <div class="h3-kpi">
+                    <span class="h3-kpi__label">Ticket médio</span>
+                    <span class="h3-kpi__row">
+                      <span class="h3-kpi__val" data-count="38.2" data-format="brl">R$ 38,20</span>
+                      <span class="h3-delta">+12%</span>
+                    </span>
+                  </div>
+                  <div class="h3-kpi">
+                    <span class="h3-kpi__label">Mesas abertas</span>
+                    <span class="h3-kpi__row">
+                      <span class="h3-kpi__val" data-count="7">7</span>
+                      <span class="h3-kpi__val"><small>de 12</small></span>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="h3-chart">
+                  <div class="h3-chart__head">
+                    <span class="h3-chart__title">Resumo de vendas</span>
+                    <span class="h3-chart__hint">últimos 7 dias</span>
+                  </div>
+
+                  <svg viewBox="0 0 320 72" aria-hidden="true" focusable="false">
+                    <defs>
+                      <linearGradient id="h3-stroke" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0" stop-color="#FF5A1F" stop-opacity=".45"/>
+                        <stop offset="1" stop-color="#FF8A5C"/>
+                      </linearGradient>
+                      <linearGradient id="h3-fill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#FF5A1F" stop-opacity=".34"/>
+                        <stop offset="1" stop-color="#FF5A1F" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+
+                    <path class="h3-area" d="M6,54 C23,54 40,44 57,44 C74,44 91,48 108,48 C125,48 142,30 159,30 C176,30 193,20 210,20 C227,20 244,11 261,11 C278,11 295,26 312,26 L312,72 L6,72 Z"/>
+                    <path class="h3-line" d="M6,54 C23,54 40,44 57,44 C74,44 91,48 108,48 C125,48 142,30 159,30 C176,30 193,20 210,20 C227,20 244,11 261,11 C278,11 295,26 312,26"/>
+                    <circle class="h3-dot" cx="261" cy="11" r="4"/>
+                  </svg>
+
+                  <div class="h3-days">
+                    <span>seg</span><span>ter</span><span>qua</span><span>qui</span>
+                    <span>sex</span><span>sáb</span><span>dom</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- ----------------------------------------------------- faturamento -->
+          <div class="h3-layer h3-layer--rev">
+            <div class="h3-float" style="--dur:5.8s;--off:-3.4s">
+              <article class="h3-card h3-enter">
+                <span class="h3-kpi__label">Faturamento · 7 dias</span>
+                <span class="h3-kpi__row">
+                  <span class="h3-kpi__val" data-count="24780.5" data-format="brl">R$ 24.780,50</span>
+                </span>
+                <span class="h3-delta" style="margin-top:6px;display:inline-block">+23,6%</span>
+
+                <svg viewBox="0 0 164 40" aria-hidden="true" focusable="false" style="margin-top:8px">
+                  <path class="h3-line" data-delay="220ms" stroke-width="2"
+                        d="M4,32 C17,32 30,24 43,24 C56,24 69,28 82,28 C95,28 108,14 121,14 C134,14 147,7 160,7"/>
+                </svg>
+
+                <div class="h3-bars" aria-hidden="true">
+                  <i style="height:38%"></i><i style="height:52%"></i><i style="height:44%"></i>
+                  <i style="height:66%"></i><i style="height:58%"></i><i style="height:74%"></i>
+                  <i style="height:62%"></i><i style="height:82%"></i><i style="height:70%"></i>
+                  <i style="height:88%"></i><i style="height:96%"></i><i style="height:78%"></i>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- ---------------------------------------------- formas de pagamento -->
+          <div class="h3-layer h3-layer--pay">
+            <div class="h3-float" style="--dur:6.9s;--off:-1.6s">
+              <article class="h3-card h3-enter">
+                <header class="h3-head">
+                  <span class="h3-head__title">Formas de pagamento</span>
+                </header>
+
+                <div class="h3-donut">
+                  <svg viewBox="0 0 74 74" aria-hidden="true" focusable="false">
+                    <circle cx="37" cy="37" r="28" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="9"/>
+                    <circle class="h3-seg" cx="37" cy="37" r="28" stroke="#FF5A1F" data-pct="58" style="--rot:-90deg"    stroke-dasharray="99.04 76.89"/>
+                    <circle class="h3-seg" cx="37" cy="37" r="28" stroke="#35C77B" data-pct="30" style="--rot:118.8deg"  stroke-dasharray="49.78 126.15"/>
+                    <circle class="h3-seg" cx="37" cy="37" r="28" stroke="#6E6663" data-pct="12" style="--rot:226.8deg"  stroke-dasharray="18.11 157.82"/>
+                  </svg>
+
+                  <div class="h3-leg">
+                    <span><i style="background:#FF5A1F"></i>Cartão <b>58%</b></span>
+                    <span><i style="background:#35C77B"></i>PIX <b>30%</b></span>
+                    <span><i style="background:#6E6663"></i>Dinheiro <b>12%</b></span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- ---------------------------------------------------------- pedidos -->
+          <div class="h3-layer h3-layer--orders">
+            <div class="h3-float" style="--dur:6.1s;--off:-4.2s">
+              <article class="h3-card h3-enter">
+                <header class="h3-head">
+                  <span class="h3-head__title">Pedidos</span>
+                  <span class="h3-live">Tempo real</span>
+                </header>
+
+                <div class="h3-orders">
+                  <div class="h3-order">
+                    <span class="h3-pill h3-pill--recebido">Recebido</span>
+                    <span class="h3-order__body">
+                      <span class="h3-order__id">#128 · Mesa 7</span>
+                      <span class="h3-order__meta">3 itens · há 12 segundos</span>
+                    </span>
+                    <span class="h3-order__val">R$ 74,00</span>
+                  </div>
+                  <div class="h3-order">
+                    <span class="h3-pill h3-pill--preparando">Preparando</span>
+                    <span class="h3-order__body">
+                      <span class="h3-order__id">#127 · Delivery</span>
+                      <span class="h3-order__meta">5 itens · há 2 minutos</span>
+                    </span>
+                    <span class="h3-order__val">R$ 63,40</span>
+                  </div>
+                  <div class="h3-order">
+                    <span class="h3-pill h3-pill--enviado">Enviado</span>
+                    <span class="h3-order__body">
+                      <span class="h3-order__id">#126 · Delivery</span>
+                      <span class="h3-order__meta">4 itens · há 9 minutos</span>
+                    </span>
+                    <span class="h3-order__val">R$ 52,30</span>
+                  </div>
+                  <div class="h3-order">
+                    <span class="h3-pill h3-pill--concluido">Concluído</span>
+                    <span class="h3-order__body">
+                      <span class="h3-order__id">#125 · Retirada</span>
+                      <span class="h3-order__meta">2 itens · há 14 minutos</span>
+                    </span>
+                    <span class="h3-order__val">R$ 41,80</span>
+                  </div>
+                </div>
+
+                <p class="h3-foot"><span>Comandas impressas</span><strong>128/128</strong></p>
+              </article>
+            </div>
+          </div>
+
+          <!-- ------------------------------------------- o celular do cliente -->
+          <div class="h3-layer h3-layer--phone">
+            <div class="h3-float" style="--dur:7.2s;--off:-2.8s">
+              <div class="h3-phone h3-enter">
+                <div class="h3-phone__screen">
+                  <div class="h3-phone__bar">
+                    <span class="h3-phone__mark"></span>
+                    <span>
+                      <span class="h3-phone__name">Boteco da Brasa</span>
+                      <span class="h3-phone__open">Aberto agora</span>
+                    </span>
+                  </div>
+
+                  <div class="h3-cats">
+                    <span class="h3-chip is-on">Destaques</span>
+                    <span class="h3-chip">Lanches</span>
+                    <span class="h3-chip">Bebidas</span>
+                  </div>
+
+                  <div class="h3-item">
+                    <span class="h3-item__thumb">🍔</span>
+                    <span class="h3-item__name">Smash Duplo</span>
+                    <span class="h3-item__price">R$ 36,90</span>
+                  </div>
+                  <div class="h3-item">
+                    <span class="h3-item__thumb">🍟</span>
+                    <span class="h3-item__name">Batata Rústica</span>
+                    <span class="h3-item__price">R$ 12,90</span>
+                  </div>
+                  <div class="h3-item">
+                    <span class="h3-item__thumb">🥤</span>
+                    <span class="h3-item__name">Refrigerante</span>
+                    <span class="h3-item__price">R$ 6,50</span>
+                  </div>
+                  <div class="h3-item">
+                    <span class="h3-item__thumb">🍫</span>
+                    <span class="h3-item__name">Brigadeiro</span>
+                    <span class="h3-item__price">R$ 7,90</span>
+                  </div>
+
+                  <div class="h3-phone__cta">Ver pedido · R$ 64,20</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ------------------------------------------------------------ toast -->
+          <div class="h3-layer h3-layer--toast">
+            <div class="h3-float">
+              <div class="h3-toast">
+                <span class="h3-toast__icon" data-icon="receipt"></span>
+                <span>
+                  <span class="h3-toast__title">Pedido #128 no painel</span>
+                  <span class="h3-toast__text">Comanda impressa na cozinha</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================== COMO FUNCIONA == -->
+  <section class="section section--tint" id="como-funciona">
+    <div class="wrap">
+      <div class="section__head section__head--center">
+        <p class="section__kicker">Como funciona</p>
+        <h2 class="section__title">Três passos, e você não digita nada</h2>
+        <p class="section__sub">
+          Do cadastro do cardápio à comanda na cozinha, o caminho é curto —
+          e a parte chata fica com a gente.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <article class="stepcard">
+          <h3 class="stepcard__title">Cadastramos seu cardápio</h3>
+          <p class="stepcard__text">
+            Você manda o cardápio que já tem e nós montamos tudo: categorias,
+            fotos, preços, complementos, adicionais e opções como meio a meio.
+            Sua loja ganha um endereço próprio, do tipo
+            <strong>sualoja.balcaonaweb.com.br</strong>, com QR Code para imprimir.
+          </p>
+        </article>
+
+        <article class="stepcard">
+          <h3 class="stepcard__title">O cliente pede pelo link ou QR Code</h3>
+          <p class="stepcard__text">
+            Abre no navegador do celular: sem baixar app, sem criar conta e sem
+            senha. Ele escolhe entrega ou retirada, e o cardápio já respeita sua
+            taxa de entrega e o pedido mínimo.
+          </p>
+        </article>
+
+        <article class="stepcard">
+          <h3 class="stepcard__title">O pedido cai no painel e sai impresso</h3>
+          <p class="stepcard__text">
+            O pedido aparece no quadro em tempo real, com som de alerta, e a
+            comanda sai automaticamente na impressora térmica da cozinha em
+            cerca de 2 segundos — mesmo quando entram vários de uma vez.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================= POR QUE == -->
+  <section class="section" id="por-que">
+    <div class="wrap">
+      <div class="section__head section__head--center">
+        <p class="section__kicker">Por que o Balcão na Web</p>
+        <h2 class="section__title">O delivery é seu. A margem também.</h2>
+        <p class="section__sub">
+          Marketplace cobra comissão de cada pedido e fica com o contato do seu
+          cliente. Aqui a venda é sua, do primeiro toque à comanda na cozinha.
+        </p>
+      </div>
+
+      <div class="benefits">
+        <article class="benefit">
+          <div class="benefit__icon" data-icon="money"></div>
+          <h3 class="benefit__title">Sem comissão por pedido</h3>
+          <p class="benefit__text">
+            Vendeu mais? Você fica com tudo. Nenhum centavo de comissão sai
+            do seu caixa, e não há contrato de fidelidade prendendo você.
+          </p>
+        </article>
+
+        <article class="benefit">
+          <div class="benefit__icon" data-icon="phone"></div>
+          <h3 class="benefit__title">Sem app para instalar</h3>
+          <p class="benefit__text">
+            Nem para o seu cliente, nem para você. O cardápio abre no navegador
+            e o painel também — no computador do caixa ou no seu celular.
+          </p>
+        </article>
+
+        <article class="benefit">
+          <div class="benefit__icon" data-icon="receipt"></div>
+          <h3 class="benefit__title">Comanda impressa sozinha</h3>
+          <p class="benefit__text">
+            A cozinha recebe o papel sem ninguém apertar nada. Acabou a bobina?
+            O painel avisa e a comanda sai assim que o papel volta — nenhum
+            pedido se perde.
+          </p>
+        </article>
+
+        <article class="benefit">
+          <div class="benefit__icon" data-icon="store"></div>
+          <h3 class="benefit__title">Salão e delivery juntos</h3>
+          <p class="benefit__text">
+            Mesas numeradas na tela: o atendente lança o pedido na mesa com o
+            mesmo cardápio, a conta acumula e fecha em dois toques com a forma
+            de pagamento.
+          </p>
+        </article>
+
+        <article class="benefit">
+          <div class="benefit__icon" data-icon="tag"></div>
+          <h3 class="benefit__title">Você vê o caixa do dia</h3>
+          <p class="benefit__text">
+            Faturamento, ticket médio e mais vendidos, separados por mesa,
+            delivery e retirada. Todo o histórico de pedidos fica salvo,
+            com busca.
+          </p>
+        </article>
+
+        <article class="benefit">
+          <div class="benefit__icon" data-icon="clock"></div>
+          <h3 class="benefit__title">A loja no seu controle</h3>
+          <p class="benefit__text">
+            Horário de funcionamento por dia da semana, "fechar loja agora"
+            quando apertar, e pausar um produto que acabou em dois toques.
+            Some do cardápio na hora.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================== PAINEL == -->
+  <section class="section section--tint" id="painel">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="section__kicker">Veja funcionando</p>
+        <h2 class="section__title">O pedido entra no painel e a cozinha já sabe</h2>
+        <p class="section__sub">
+          Nada de decifrar áudio de 40 segundos, anotar em papel ou ficar
+          conferindo o celular. O quadro de pedidos toca, e a comanda já está
+          saindo na impressora.
+        </p>
+      </div>
+
+      <div class="demo">
+        <!-- Quadro de pedidos -->
+        <div class="shot">
+          <p class="shot__label">Quadro de pedidos · em tempo real</p>
+
+          <div class="order" data-state="novo">
+            <span class="order__flag">Novo</span>
+            <span class="order__body">
+              <span class="order__title">#128 · Mesa 7</span>
+              <span class="order__meta">3 itens · há 12 segundos</span>
+            </span>
+            <span class="order__value">R$ 74,00</span>
+          </div>
+
+          <div class="order" data-state="preparo">
+            <span class="order__flag order__flag--preparo">Em preparo</span>
+            <span class="order__body">
+              <span class="order__title">#127 · Delivery</span>
+              <span class="order__meta">Boa Viagem · 2 itens</span>
+            </span>
+            <span class="order__value">R$ 58,40</span>
+          </div>
+
+          <div class="order" data-state="pronto">
+            <span class="order__flag order__flag--pronto">Pronto</span>
+            <span class="order__body">
+              <span class="order__title">#126 · Retirada</span>
+              <span class="order__meta">Aguardando o cliente</span>
+            </span>
+            <span class="order__value">R$ 31,50</span>
+          </div>
+
+          <p class="shot__total"><span>Caixa de hoje · 34 pedidos</span><span>R$ 1.842,60</span></p>
+        </div>
+
+        <!-- Comanda saindo da impressora -->
+        <div class="shot shot--printer">
+          <p class="shot__label">Comanda na cozinha · automática</p>
+
+          <div class="comanda" role="img" aria-label="Comanda impressa do pedido 128, mesa 7: 1 Smash Duplo com bacon e sem cebola, 2 batatas com cheddar, total R$ 74,00">
+<pre class="comanda__paper">     BOTECO DA BRASA
+================================
+PEDIDO #128            19:42
+MESA 7
+--------------------------------
+1x SMASH DUPLO
+   + Bacon crocante
+   OBS: sem cebola
+
+2x BATATA COM CHEDDAR
+--------------------------------
+TOTAL               R$ 74,00
+================================
+   Balcao na Web</pre>
+          </div>
+
+          <p class="comanda__note" id="comanda-note">
+            Sai sozinha em ~2 segundos. Sem papel, o painel avisa e reimprime depois.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================== EM BREVE == -->
+  <section class="section">
+    <div class="wrap">
+      <div class="soon">
+        <p class="eyebrow">Em breve</p>
+        <h2 class="soon__title">O cliente pedindo da própria mesa, pelo QR Code</h2>
+        <p class="soon__text">
+          Sem chamar garçom para anotar: o cliente aponta a câmera, monta o
+          pedido e ele já entra na comanda da mesa.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================= DÚVIDAS == -->
+  <section class="section section--tint" id="duvidas">
+    <div class="wrap">
+      <div class="section__head section__head--center">
+        <p class="section__kicker">Dúvidas frequentes</p>
+        <h2 class="section__title">O que todo lojista pergunta primeiro</h2>
+      </div>
+
+      <div class="faq">
+        <details class="faq__item">
+          <summary class="faq__q">Quem cadastra o meu cardápio?<span data-icon="chevronDown"></span></summary>
+          <p class="faq__a">
+            Nós. Você envia o cardápio que já usa — PDF, foto, planilha ou o link
+            de outro sistema — e a gente monta tudo: categorias, fotos, preços,
+            complementos, adicionais e opções como meio a meio. Você só confere
+            antes de publicar.
+          </p>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">Como o pedido chega até a cozinha?<span data-icon="chevronDown"></span></summary>
+          <p class="faq__a">
+            O pedido entra no seu painel em tempo real, com som de alerta, e a
+            comanda sai impressa automaticamente na impressora térmica da cozinha
+            em cerca de 2 segundos. Se entrarem vários pedidos de uma vez, todas
+            as comandas saem, uma atrás da outra.
+          </p>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">E se acabar o papel da impressora?<span data-icon="chevronDown"></span></summary>
+          <p class="faq__a">
+            O painel avisa que o papel acabou e guarda a comanda. Assim que você
+            troca a bobina, ela sai sozinha. Nenhum pedido fica para trás.
+          </p>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">Serve para o salão ou só para delivery?<span data-icon="chevronDown"></span></summary>
+          <p class="faq__a">
+            Os dois, no mesmo sistema. No salão você tem as mesas numeradas na
+            tela: o atendente lança o pedido na mesa usando o mesmo cardápio, a
+            conta vai acumulando e fecha em dois toques, escolhendo a forma de
+            pagamento. No delivery e na retirada valem a sua taxa de entrega e o
+            pedido mínimo.
+          </p>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">Meu cliente precisa instalar alguma coisa?<span data-icon="chevronDown"></span></summary>
+          <p class="faq__a">
+            Não. O cardápio é um site que abre no navegador do celular, sem app,
+            sem cadastro e sem senha. Você administra tudo pelo navegador também,
+            no computador ou no celular.
+          </p>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">Vocês cobram comissão sobre as vendas?<span data-icon="chevronDown"></span></summary>
+          <p class="faq__a">
+            Não. É preço fixo mensal, sem comissão por pedido e sem contrato de
+            fidelidade. O dinheiro da venda vai inteiro para você, porque o
+            pagamento acontece direto entre a sua loja e o cliente.
+          </p>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">Consigo pausar um produto que acabou?<span data-icon="chevronDown"></span></summary>
+          <p class="faq__a">
+            Em dois toques, pelo painel. O item some do cardápio na hora, em todos
+            os celulares. Vale para fechar a loja no meio do expediente também, e
+            o horário de funcionamento pode ser diferente em cada dia da semana.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================= CTA FINAL == -->
+  <section class="section" id="preco">
+    <div class="wrap">
+      <div class="cta-final">
+        <h2 class="cta-final__title">Preço fixo mensal, sem comissão</h2>
+        <p class="cta-final__sub">
+          A gente monta o seu cardápio, configura a impressora da cozinha e
+          acompanha os primeiros pedidos com você. Chame no WhatsApp que
+          mostramos funcionando.
+        </p>
+        <div class="cta-final__actions">
+          <a class="btn btn--primary btn--lg" data-link="contato" href="#painel">Quero ver funcionando</a>
+          <a class="btn btn--outline btn--lg" data-link="demo" href="#painel">Ver cardápio de exemplo</a>
+        </div>
+        <p class="cta-final__note">Sem comissão por pedido · Sem contrato de fidelidade</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============================================================ RODAPÉ == -->
+<footer class="lp-footer">
+  <div class="wrap">
+    <div class="lp-footer__grid">
+      <div>
+        <a class="lp-logo" href="#top">
+          <span class="lp-logo__mark" data-icon="store" aria-hidden="true"></span>
+          Balcão na Web
+        </a>
+        <p class="lp-footer__text">
+          Cardápio digital, painel de pedidos e comanda impressa na cozinha.
+          Para restaurantes, lanchonetes e pizzarias que querem vender direto,
+          sem intermediário mordendo a margem.
+        </p>
+      </div>
+
+      <div class="lp-footer__col">
+        <h3>Produto</h3>
+        <ul>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#por-que">Por que o Balcão na Web</a></li>
+          <li><a href="#painel">O painel e a cozinha</a></li>
+          <li><a data-link="demo" href="#como-funciona">Cardápio de exemplo</a></li>
+        </ul>
+      </div>
+
+      <div class="lp-footer__col">
+        <h3>Para quem é</h3>
+        <ul>
+          <li><a data-link="demo" href="#como-funciona">Hamburguerias</a></li>
+          <li><a data-link="demo" href="#como-funciona">Pizzarias</a></li>
+          <li><a data-link="demo" href="#como-funciona">Açaíterias</a></li>
+          <li><a data-link="demo" href="#como-funciona">Restaurantes e marmitarias</a></li>
+        </ul>
+      </div>
+
+      <div class="lp-footer__col">
+        <h3>Falar com a gente</h3>
+        <ul>
+          <li><a data-link="contato" href="#preco">Quero ver funcionando</a></li>
+          <li><a href="#duvidas">Dúvidas frequentes</a></li>
+          <li><a href="#preco">Preço</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="lp-footer__bottom">
+      <span>© 2026 Balcão na Web</span>
+      <span>Feito em Recife · primeira loja no ar: Titu's Burger</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ======================================================================
+     CONFIGURAÇÃO DA PÁGINA DE VENDAS
+
+     `whatsappContato` está vazio de propósito: preencha com o número de
+     contato (55 + DDD + número, só dígitos) e TODOS os botões "Quero ver
+     funcionando" viram um link de WhatsApp com a mensagem já escrita.
+     Enquanto estiver vazio, eles seguem como âncora interna da página.
+     ====================================================================== */
+  window.BW_LANDING = {
+    urlDemo: 'https://titus.balcaonaweb.com.br',
+    whatsappContato: '',
+    mensagemContato: 'Olá! Vi o site do Balcão na Web e quero ver o sistema funcionando na minha loja.'
+  };
+</script>
+
+<script src="assets/js/core/utils.js"></script>
+<script src="assets/js/core/icones.js"></script>
+<script src="assets/js/landing.js"></script>
+<script src="assets/js/hero3d.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Balcão na Web",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "description": "Cardápio digital com endereço próprio e QR Code, painel de pedidos em tempo real e impressão automática da comanda na cozinha. Atende salão, delivery e retirada, sem comissão por pedido.",
+  "featureList": [
+    "Cardápio digital com QR Code e endereço próprio",
+    "Painel de pedidos em tempo real com alerta sonoro",
+    "Impressão automática da comanda na impressora térmica",
+    "Mesas do salão com conta acumulada",
+    "Delivery e retirada com taxa de entrega e pedido mínimo",
+    "Relatórios de faturamento, ticket médio e mais vendidos"
+  ],
+  "areaServed": "BR"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Quem cadastra o meu cardápio?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Nós cadastramos. Você envia o cardápio que já usa e montamos categorias, fotos, preços, complementos, adicionais e opções como meio a meio." } },
+    { "@type": "Question", "name": "Como o pedido chega até a cozinha?",
+      "acceptedAnswer": { "@type": "Answer", "text": "O pedido entra no painel em tempo real, com som de alerta, e a comanda sai impressa automaticamente na impressora térmica da cozinha em cerca de 2 segundos." } },
+    { "@type": "Question", "name": "E se acabar o papel da impressora?",
+      "acceptedAnswer": { "@type": "Answer", "text": "O painel avisa que o papel acabou e guarda a comanda. Assim que a bobina é trocada, ela sai sozinha." } },
+    { "@type": "Question", "name": "Serve para o salão ou só para delivery?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Os dois no mesmo sistema. No salão as mesas ficam numeradas na tela, a conta acumula e fecha em dois toques com a forma de pagamento." } },
+    { "@type": "Question", "name": "Meu cliente precisa instalar alguma coisa?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Não. O cardápio abre no navegador do celular, sem app, sem cadastro e sem senha." } },
+    { "@type": "Question", "name": "Vocês cobram comissão sobre as vendas?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Não. É preço fixo mensal, sem comissão por pedido e sem contrato de fidelidade." } }
+  ]
+}
+</script>
+</body>
+</html>

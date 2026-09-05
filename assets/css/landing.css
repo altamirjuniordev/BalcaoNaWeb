@@ -1,0 +1,337 @@
+/* ==========================================================================
+   Landing institucional — vende o sistema para o dono do restaurante.
+   Reaproveita tokens, botoes e campos de base.css.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------- nav */
+.lp-nav {
+  position: sticky; top: 0; z-index: var(--z-header);
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--t-base) var(--ease), background var(--t-base) var(--ease);
+}
+.lp-nav.is-stuck { border-bottom-color: var(--border-soft); }
+
+.lp-nav__inner {
+  max-width: var(--maxw); margin-inline: auto;
+  padding: var(--sp-3) var(--sp-4);
+  display: flex; align-items: center; gap: var(--sp-4);
+}
+
+.lp-logo {
+  display: flex; align-items: center; gap: var(--sp-2);
+  font-family: var(--font-display); font-weight: var(--fw-extra);
+  font-size: var(--fs-base); color: var(--ink); text-decoration: none;
+  letter-spacing: -.02em;
+}
+.lp-logo__mark {
+  width: 32px; height: 32px; border-radius: var(--r-sm);
+  display: grid; place-items: center; flex: none;
+  background: linear-gradient(135deg, var(--brand-400), var(--brand-700));
+  color: #fff; font-size: var(--fs-sm);
+}
+.lp-logo__mark svg { width: 18px; height: 18px; }
+
+.lp-nav__links { display: none; gap: var(--sp-6); margin-left: auto; }
+.lp-nav__links a {
+  color: var(--ink-2); text-decoration: none; font-size: var(--fs-sm);
+  font-weight: var(--fw-medium); padding-block: var(--sp-2);
+}
+.lp-nav__links a:hover { color: var(--brand-600); }
+.lp-nav__cta { margin-left: auto; }
+
+@media (min-width: 900px) {
+  .lp-nav__links { display: flex; }
+  .lp-nav__cta { margin-left: 0; }
+}
+
+/* -------------------------------------------------------------------- hero */
+.hero {
+  position: relative; overflow: hidden;
+  padding-block: var(--sp-12) var(--sp-10);
+}
+.hero::before {
+  content: ''; position: absolute; z-index: 0;
+  top: -220px; right: -180px; width: 620px; height: 620px;
+  background: radial-gradient(circle, var(--brand-200), transparent 62%);
+  opacity: .55; pointer-events: none;
+}
+.hero__inner { position: relative; z-index: 1; display: grid; gap: var(--sp-10); }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-full); padding: 6px var(--sp-3);
+  font-size: var(--fs-2xs); font-weight: var(--fw-semibold); color: var(--ink-2);
+  box-shadow: var(--sh-xs); width: fit-content;
+}
+.eyebrow__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-500); flex: none; }
+
+.hero__title {
+  font-size: var(--fs-3xl); margin-top: var(--sp-5);
+  letter-spacing: -.035em; line-height: 1.05;
+}
+.hero__title em { font-style: normal; color: var(--brand-600); }
+.hero__sub {
+  font-size: var(--fs-lg); color: var(--ink-2); margin-top: var(--sp-5);
+  max-width: 46ch; line-height: var(--lh-loose);
+}
+.hero__cta { display: flex; flex-wrap: wrap; gap: var(--sp-3); margin-top: var(--sp-7); }
+.hero__note {
+  display: flex; align-items: center; gap: var(--sp-2);
+  margin-top: var(--sp-4); font-size: var(--fs-xs); color: var(--ink-3);
+}
+.hero__note svg { width: 16px; height: 16px; color: var(--green-500); }
+
+/* Prova social logo abaixo do CTA */
+.trustbar {
+  display: flex; flex-wrap: wrap; gap: var(--sp-6);
+  margin-top: var(--sp-8); padding-top: var(--sp-6);
+  border-top: 1px solid var(--border-soft);
+}
+.trustbar__item { display: flex; flex-direction: column; }
+.trustbar__num {
+  font-family: var(--font-display); font-size: var(--fs-xl);
+  font-weight: var(--fw-extra); color: var(--ink); letter-spacing: -.02em;
+}
+.trustbar__label { font-size: var(--fs-2xs); color: var(--ink-3); }
+
+/* ----------------------------------------------------------------- secoes */
+.section { padding-block: var(--sp-16); }
+.section--tint { background: var(--surface); border-block: 1px solid var(--border-soft); }
+
+.section__head { max-width: 640px; margin-bottom: var(--sp-10); }
+.section__head--center { margin-inline: auto; text-align: center; }
+.section__kicker {
+  font-size: var(--fs-2xs); font-weight: var(--fw-bold); text-transform: uppercase;
+  letter-spacing: .08em; color: var(--brand-600); margin-bottom: var(--sp-3);
+}
+.section__title { font-size: var(--fs-2xl); letter-spacing: -.03em; }
+.section__sub { font-size: var(--fs-base); color: var(--ink-2); margin-top: var(--sp-3); line-height: var(--lh-loose); }
+
+/* ------------------------------------------------------------- beneficios */
+.benefits { display: grid; gap: var(--sp-4); }
+.benefit {
+  background: var(--bg); border: 1px solid var(--border-soft);
+  border-radius: var(--r-xl); padding: var(--sp-6);
+  transition: transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease);
+}
+.section--tint .benefit { background: var(--bg); }
+.benefit:hover { transform: translateY(-3px); box-shadow: var(--sh-md); }
+.benefit__icon {
+  width: 46px; height: 46px; border-radius: var(--r-md);
+  display: grid; place-items: center; margin-bottom: var(--sp-4);
+  background: var(--brand-50); color: var(--brand-600);
+}
+.benefit__icon svg { width: 23px; height: 23px; }
+.benefit__title { font-size: var(--fs-lg); margin-bottom: var(--sp-2); }
+.benefit__text { font-size: var(--fs-sm); color: var(--ink-2); line-height: var(--lh-loose); }
+
+/* ---------------------------------------------------------- como funciona */
+.steps-grid { display: grid; gap: var(--sp-8); counter-reset: step; }
+.stepcard { position: relative; padding-top: 60px; }
+.stepcard::before {
+  counter-increment: step; content: counter(step);
+  position: absolute; top: 0; left: 0;
+  width: 44px; height: 44px; border-radius: var(--r-full);
+  display: grid; place-items: center;
+  background: var(--brand-500); color: var(--ink-on-brand);
+  font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-extra);
+  box-shadow: var(--sh-brand);
+}
+.stepcard__title { font-size: var(--fs-lg); margin-bottom: var(--sp-2); }
+.stepcard__text { font-size: var(--fs-sm); color: var(--ink-2); line-height: var(--lh-loose); }
+
+/* ------------------------------------------------------------ demo visual */
+.demo {
+  display: grid; gap: var(--sp-6);
+  background: linear-gradient(150deg, var(--brand-50), var(--surface-2));
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-2xl); padding: var(--sp-8);
+}
+.demo__shots { display: grid; gap: var(--sp-4); }
+.shot {
+  background: var(--surface); border: 1px solid var(--border-soft);
+  border-radius: var(--r-lg); padding: var(--sp-4);
+  box-shadow: var(--sh-sm);
+}
+.shot__label {
+  font-size: var(--fs-2xs); font-weight: var(--fw-bold); color: var(--ink-3);
+  text-transform: uppercase; letter-spacing: .05em; margin-bottom: var(--sp-3);
+}
+.shot__total {
+  display: flex; justify-content: space-between; margin-top: var(--sp-3);
+  padding-top: var(--sp-3); border-top: 1px dashed var(--border);
+  font-weight: var(--fw-bold); color: var(--ink); font-size: var(--fs-sm);
+}
+
+/* --- Quadro de pedidos do painel --- */
+.order {
+  display: flex; align-items: center; gap: var(--sp-3);
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+.order:last-of-type { border-bottom: 0; }
+.order__flag {
+  flex: none; min-width: 74px; text-align: center;
+  padding: 4px var(--sp-2); border-radius: var(--r-xs);
+  font-size: var(--fs-3xs); font-weight: var(--fw-bold);
+  text-transform: uppercase; letter-spacing: .03em;
+  background: var(--brand-500); color: var(--ink-on-brand);
+}
+.order__flag--preparo { background: var(--amber-50); color: var(--amber-700); }
+.order__flag--pronto  { background: var(--green-50); color: var(--green-600); }
+.order__body { flex: 1; min-width: 0; }
+.order__title { display: block; font-size: var(--fs-sm); font-weight: var(--fw-semibold); color: var(--ink); }
+.order__meta { display: block; font-size: var(--fs-2xs); color: var(--ink-3); }
+.order__value { font-size: var(--fs-sm); font-weight: var(--fw-bold); color: var(--ink); white-space: nowrap; }
+
+/* O pedido novo pulsa de leve: é o que o lojista vê de longe, com o som. */
+.order[data-state="novo"] .order__flag { animation: pulse-flag 2.2s var(--ease) infinite; }
+@keyframes pulse-flag {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand-500) 55%, transparent); }
+  60%      { box-shadow: 0 0 0 8px transparent; }
+}
+
+/* --- Comanda saindo da impressora térmica ---
+   O cartão fica cor de creme e o papel branco por cima: é esse contraste
+   que faz a serrilha aparecer e o bloco ler como papel, não como caixa de
+   texto. No escuro o papel continua branco — bobina térmica é branca. */
+.shot--printer { position: relative; background: var(--surface-2); }
+.comanda {
+  position: relative;
+  background: #FFFFFF;
+  border-radius: var(--r-sm) var(--r-sm) 0 0;
+  padding: var(--sp-4) var(--sp-3) var(--sp-6);
+  box-shadow: inset 0 0 0 1px rgba(60, 35, 20, .07), var(--sh-xs);
+}
+/* Serrilha do papel picotado: meias-luas da cor do cartão mordendo a base.
+   Feito com gradiente porque duas camadas de `mask` se somam em vez de
+   recortar — o resultado seria uma borda reta. */
+.comanda::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 12px;
+  background: radial-gradient(circle at 50% 0, var(--surface-2) 6.2px, transparent 6.6px)
+              0 0 / 15px 12px repeat-x;
+}
+.comanda__paper {
+  margin: 0;
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, 'Courier New', monospace;
+  font-size: var(--fs-2xs); line-height: 1.65;
+  color: #2A211B; white-space: pre; overflow-x: auto;
+  letter-spacing: .01em;
+}
+.comanda__note {
+  display: flex; align-items: flex-start; gap: var(--sp-2);
+  margin-top: var(--sp-4);
+  font-size: var(--fs-2xs); color: var(--ink-3); line-height: var(--lh-normal);
+}
+.comanda__note svg { color: var(--green-500); margin-top: 1px; }
+
+/* --------------------------------------------------------------- em breve */
+.soon {
+  display: flex; flex-direction: column; align-items: center; gap: var(--sp-3);
+  text-align: center;
+  border: 1px dashed var(--border); border-radius: var(--r-2xl);
+  padding: var(--sp-10) var(--sp-6);
+  background: var(--surface-2);
+}
+.soon__title { font-size: var(--fs-xl); letter-spacing: -.02em; }
+.soon__text { font-size: var(--fs-sm); color: var(--ink-2); max-width: 48ch; line-height: var(--lh-loose); }
+
+/* ------------------------------------------------------------------- FAQ */
+.faq { display: flex; flex-direction: column; gap: var(--sp-3); max-width: 760px; margin-inline: auto; }
+.faq__item {
+  background: var(--surface); border: 1px solid var(--border-soft);
+  border-radius: var(--r-lg); overflow: hidden;
+  transition: border-color var(--t-base) var(--ease);
+}
+.section--tint .faq__item { background: var(--bg); }
+.faq__item[open] { border-color: var(--brand-300); }
+.faq__q {
+  display: flex; align-items: center; gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5); cursor: pointer;
+  font-size: var(--fs-md); font-weight: var(--fw-semibold); color: var(--ink);
+  list-style: none; min-height: var(--tap);
+}
+.faq__q::-webkit-details-marker { display: none; }
+.faq__q:hover { color: var(--brand-600); }
+.faq__q > span { margin-left: auto; display: flex; color: var(--ink-3); }
+.faq__q svg { transition: transform var(--t-base) var(--ease); }
+.faq__item[open] .faq__q svg { transform: rotate(180deg); }
+.faq__a {
+  padding: 0 var(--sp-5) var(--sp-5);
+  font-size: var(--fs-sm); color: var(--ink-2); line-height: var(--lh-loose);
+}
+
+/* ---------------------------------------------------------------- CTA final */
+.cta-final {
+  position: relative; overflow: hidden;
+  background: linear-gradient(140deg, var(--brand-600), var(--brand-800));
+  border-radius: var(--r-2xl);
+  padding: var(--sp-12) var(--sp-6);
+  text-align: center; color: #fff;
+}
+.cta-final::before {
+  content: ''; position: absolute; top: -140px; right: -100px;
+  width: 380px; height: 380px; border-radius: 50%;
+  background: rgba(255, 255, 255, .12);
+}
+.cta-final > * { position: relative; z-index: 1; }
+.cta-final__title { color: #fff; font-size: var(--fs-2xl); letter-spacing: -.03em; }
+.cta-final__sub { color: rgba(255,255,255,.9); font-size: var(--fs-base); margin-top: var(--sp-4); max-width: 52ch; margin-inline: auto; }
+.cta-final__actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); justify-content: center; margin-top: var(--sp-7); }
+.cta-final .btn--primary { --btn-bg: #fff; --btn-fg: var(--brand-700); box-shadow: var(--sh-lg); }
+.cta-final .btn--primary:hover { --btn-bg: var(--brand-50); }
+.cta-final .btn--outline { --btn-bd: rgba(255,255,255,.55); --btn-fg: #fff; }
+.cta-final .btn--outline:hover { --btn-bg: rgba(255,255,255,.14); }
+.cta-final__note { font-size: var(--fs-2xs); color: rgba(255,255,255,.75); margin-top: var(--sp-5); }
+
+/* ---------------------------------------------------------------- rodape */
+.lp-footer { padding-block: var(--sp-12) var(--sp-8); border-top: 1px solid var(--border-soft); }
+.lp-footer__grid { display: grid; gap: var(--sp-8); }
+.lp-footer__text { font-size: var(--fs-sm); color: var(--ink-3); line-height: var(--lh-loose); margin-top: var(--sp-3); max-width: 34ch; }
+.lp-footer__col h3 {
+  font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: .06em;
+  color: var(--ink-3); margin-bottom: var(--sp-3);
+}
+.lp-footer__col li { margin-bottom: var(--sp-2); }
+.lp-footer__col a { font-size: var(--fs-sm); color: var(--ink-2); text-decoration: none; }
+.lp-footer__col a:hover { color: var(--brand-600); text-decoration: underline; }
+.lp-footer__bottom {
+  margin-top: var(--sp-10); padding-top: var(--sp-5);
+  border-top: 1px solid var(--border-soft);
+  display: flex; flex-wrap: wrap; gap: var(--sp-3); justify-content: space-between;
+  font-size: var(--fs-xs); color: var(--ink-3);
+}
+
+/* ----------------------------------------------------------- breakpoints */
+@media (min-width: 768px) {
+  .hero { padding-block: var(--sp-16) var(--sp-12); }
+  .hero__title { font-size: var(--fs-4xl); }
+  .benefits { grid-template-columns: repeat(2, 1fr); }
+  .steps-grid { grid-template-columns: repeat(3, 1fr); }
+  .demo { grid-template-columns: 1fr 1fr; align-items: start; padding: var(--sp-10); }
+  .lp-footer__grid { grid-template-columns: 2fr 1fr 1fr 1fr; }
+  .section__title { font-size: var(--fs-3xl); }
+  .cta-final { padding: var(--sp-16); }
+}
+
+@media (min-width: 1024px) {
+  .hero__inner { grid-template-columns: 1.05fr .95fr; align-items: center; gap: var(--sp-12); }
+  .hero__title { font-size: var(--fs-5xl); }
+  /* 6 benefícios: 3 colunas fecham duas linhas cheias, sem card órfão. */
+  .benefits { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* --------------------------------------------------------------------------
+   Ajuste final — a trustbar vira grade de duas colunas.
+   -------------------------------------------------------------------------- */
+.trustbar {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-5) var(--sp-6); max-width: 520px;
+  align-items: start;
+}
+/* "Salão + delivery" ocupa duas linhas; sem isto a grade fica desalinhada. */
+.trustbar__num { line-height: var(--lh-tight); }
