@@ -1,5 +1,5 @@
 ---
-import Icon from './Icon.astro';
+import Logo from './Logo.astro';
 import { site, linkContato } from '../data/site';
 
 const contato = linkContato();
@@ -9,10 +9,7 @@ const ano = new Date().getFullYear();
   <div class="wrap">
     <div class="lp-footer__grid">
       <div>
-        <a class="lp-logo" href="/">
-          <span class="lp-logo__mark" aria-hidden="true"><Icon nome="store" /></span>
-          {site.nome}
-        </a>
+        <Logo />
         <p class="lp-footer__text">
           Cardápio digital, painel de pedidos e comanda impressa na cozinha.
           Para restaurantes, lanchonetes e pizzarias que querem vender direto,

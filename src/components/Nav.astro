@@ -1,15 +1,13 @@
 ---
 import Icon from './Icon.astro';
-import { site, linkContato } from '../data/site';
+import Logo from './Logo.astro';
+import { linkContato } from '../data/site';
 
 const contato = linkContato();
 ---
 <header class="lp-nav" id="lp-nav">
   <div class="lp-nav__inner">
-    <a class="lp-logo" href="/">
-      <span class="lp-logo__mark" aria-hidden="true"><Icon nome="store" /></span>
-      {site.nome}
-    </a>
+    <Logo prioridade />
 
     <nav class="lp-nav__links" aria-label="Seções da página">
       <a href="#como-funciona">Como funciona</a>

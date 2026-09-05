@@ -41,9 +41,14 @@ const grafo: Record<string, unknown>[] = [
     '@id': `${site.dominio}/#organizacao`,
     name: site.nome,
     url: site.dominio,
+    /* O Google usa isto no painel de conhecimento. Pede no minimo 112px de
+       altura e renderiza sobre fundo claro, entao vai a variante de texto
+       escuro, em 596x200. */
     logo: {
       '@type': 'ImageObject',
-      url: new URL('/favicon.svg', site.dominio).href,
+      url: new URL('/img/logo.png', site.dominio).href,
+      width: 596,
+      height: 200,
     },
     address: {
       '@type': 'PostalAddress',

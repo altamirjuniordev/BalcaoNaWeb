@@ -23,7 +23,8 @@ npm run dev      # http://localhost:4321
 | `npm run dev` | servidor de desenvolvimento, com recarga automática |
 | `npm run build` | gera o site em `dist/` |
 | `npm run preview` | serve o `dist/` como ficará em produção |
-| `npm run og` | regera `public/og.png` a partir de `src/og-fonte.svg` |
+| `npm run img` | regera logo e favicons a partir de `src/images/` |
+| `npm run og` | regera `public/og.png` (rode depois de `npm run img`) |
 
 ---
 
@@ -53,6 +54,7 @@ src/
   components/
     Seo.astro        meta, Open Graph, Twitter e JSON-LD de uma página
     Icon.astro       + icones.ts — SVG inline, sem JS
+    Logo.astro       logo da marca, com variante por tema
     Nav / Hero / Hero3D / ComoFunciona / PorQue / Painel / EmBreve /
     Faq / CtaFinal / Footer
   styles/
@@ -62,6 +64,7 @@ src/
     hero3d.css       composição do painel — não mexi
     fontes.css       @font-face das fontes self-hosted
     ajustes.css      o que precisou de CSS porque saiu do JS
+  images/            artes originais da marca (fonte, não vão para o ar)
   scripts/
     utils.js         helpers (7 funções, era 20)
     landing.js       tema, sombra da nav, revelação ao rolar
@@ -69,7 +72,8 @@ src/
   pages/index.astro
 public/
   og.png             imagem de compartilhamento (1200×630)
-  robots.txt  favicon.svg  fonts/
+  img/               logo (2 variantes) e favicons — gerados, não editar
+  robots.txt  fonts/
   _headers           cache e segurança (Cloudflare Pages)
   _redirects         /sitemap.xml -> /sitemap-index.xml
 deploy/
@@ -156,6 +160,26 @@ Estas dependem do app Next.js ou do painel da Cloudflare, não deste projeto:
    borda.
 
 ---
+
+## A marca
+
+As artes originais ficam em `src/images/` e **não são publicadas** — o que vai
+para o ar é o que `npm run img` gera em `public/img/`, reduzido para o tamanho
+em que é de fato exibido. Juntas, as originais somam ~1 MB; as versões
+publicadas somam ~22 KB.
+
+Três coisas que o script resolve e vale saber antes de trocar a arte:
+
+- **O logo tem o texto em branco**, feito para fundo escuro — sobre o creme do
+  tema claro a palavra "BALCÃO" desaparecia. O script gera a variante de texto
+  escuro recolorindo só os pixels sem cor; laranja e azul ficam intactos. O
+  `Logo.astro` mostra a certa conforme o tema.
+- **O logo original tinha 17% da altura em borda transparente**, o que encolhia
+  o texto na barra de navegação sem motivo. O script recorta.
+- **O favicon fica ilegível a 16px** — a arte tem wifi, balcão, notebook e
+  monograma, e tudo isso vira um borrão no tamanho da aba do navegador. A
+  partir de 32px funciona. Se um dia valer a pena, o caminho é uma versão
+  simplificada só para 16px, com duas ou três formas.
 
 ## Otimização ainda possível
 

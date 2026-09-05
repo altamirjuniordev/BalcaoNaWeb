@@ -19,3 +19,8 @@
 
 /og.png
   Cache-Control: public, max-age=604800
+
+# Logo e favicons: nome estavel (sem hash), entao cache de uma semana com
+# revalidacao — troca de marca aparece rapido sem gastar request por visita.
+/img/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400

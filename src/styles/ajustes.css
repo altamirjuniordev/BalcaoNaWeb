@@ -53,3 +53,19 @@
    categorias (60px + 52px). Aqui so existe o header, entao as ancoras
    paravam 52px abaixo do lugar certo. */
 :root { --catnav-h: 0px; }
+
+/* ------------------------------------------------------------------ logo --
+   A arte da marca tem o texto em branco, feita para fundo escuro. Sobre o
+   creme do tema claro a palavra "BALCÃO" sumia. Sao duas imagens e o CSS
+   escolhe, cobrindo os tres estados de tema (escolha explicita nos dois
+   sentidos + preferencia do sistema). */
+.lp-logo__img { width: auto; display: block; }
+.lp-logo__img--escuro { display: none; }
+
+:root[data-theme='dark'] .lp-logo__img--claro { display: none; }
+:root[data-theme='dark'] .lp-logo__img--escuro { display: block; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .lp-logo__img--claro { display: none; }
+  :root:not([data-theme='light']) .lp-logo__img--escuro { display: block; }
+}

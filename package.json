@@ -11,7 +11,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "og": "node scripts/gerar-og.mjs"
+    "og": "node scripts/gerar-og.mjs",
+    "img": "node scripts/gerar-imagens.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.2.1",
