@@ -1,0 +1,45 @@
+---
+/* ==========================================================================
+   2 · VALE A PENA? Calculadora de comissao. Os valores iniciais ja estao
+   no HTML (R$ 20.000 a 20% = R$ 4.000); landing.js recalcula ao arrastar e
+   desenha o grafico de 12 meses. A tabela .sr-only e o mesmo dado do
+   grafico para leitor de tela.
+   ========================================================================== */
+---
+<section class="section" id="por-que">
+  <div class="wrap">
+    <div class="night split">
+      <div class="calc-col">
+        <div class="head">
+          <p class="eyebrow">Faça a conta</p>
+          <h2>Quanto a comissão leva do seu delivery?</h2>
+        </div>
+        <div>
+          <div class="field">
+            <label for="rev">Você vende por mês no delivery <span class="num" id="revO">R$ 20.000</span></label>
+            <input type="range" id="rev" min="2000" max="100000" step="1000" value="20000">
+          </div>
+          <div class="field">
+            <label for="fee">Comissão que você paga hoje <span class="num" id="feeO">20%</span></label>
+            <input type="range" id="fee" min="5" max="30" step="1" value="20">
+            <small>Some a taxa de pagamento online, se o app cobrar à parte.</small>
+          </div>
+        </div>
+      </div>
+      <div class="result" aria-live="polite">
+        <p class="k">Todo mês, sai do seu caixa</p>
+        <p class="loss" id="loss">R$ 4.000</p>
+        <p>Em um ano: <b class="num" id="year">R$ 48.000</b></p>
+        <div class="calc-viz">
+          <div class="viz-head">
+            <span class="t">Comissão acumulada em 12 meses</span>
+            <div class="legend"><span style="--c:var(--viz-n1)"><i></i>Com comissão</span><span style="--c:var(--viz-n2)"><i></i>Balcão na Web</span></div>
+          </div>
+          <div class="viz" id="vizCalc"></div>
+          <table class="sr-only" id="tblCalc"><caption>Comissão acumulada por mês</caption></table>
+        </div>
+        <p class="calc-note">E o contato do cliente fica com você, não com a plataforma.</p>
+      </div>
+    </div>
+  </div>
+</section>

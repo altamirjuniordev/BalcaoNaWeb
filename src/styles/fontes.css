@@ -1,28 +1,44 @@
 /* ==========================================================================
    Fontes — self-hosted.
 
-   Antes vinham do Google Fonts por <link>: duas origens externas
-   (fonts.googleapis.com e fonts.gstatic.com), cada uma com DNS + TLS, e a
-   folha de estilo bloqueava a renderizacao antes mesmo de comecar a baixar
-   o arquivo da fonte. Eram tres idas e voltas antes do primeiro texto.
+   O prototipo do design puxava as tres familias do Google Fonts por <link>:
+   duas origens externas (fonts.googleapis.com e fonts.gstatic.com), cada uma
+   com DNS + TLS, e a folha de estilo bloqueava a renderizacao antes mesmo de
+   comecar a baixar o arquivo da fonte.
 
-   Agora sao arquivos variaveis no mesmo dominio, com preload no <head>:
-   comecam a baixar junto com o HTML. Um arquivo por familia cobre todos os
-   pesos usados (600/700/800 na Sora, 400/500/600/700 na Inter).
+   Aqui sao arquivos variaveis no mesmo dominio. Os nomes das familias sao os
+   mesmos do prototipo, entao os tokens de site.css nao mudam. Os arquivos
+   vem dos pacotes @fontsource-variable — `npm run fontes` copia de novo.
+
+   Cada familia tem UM papel (ver site.css):
+   - Bricolage Grotesque: so titulos, peso 800. O arquivo e o que carrega o
+     eixo optico (opsz): o desenho da letra muda com o tamanho, e e isso que
+     da a cara dos titulos grandes. O arquivo so de peso sairia mais leve,
+     mas travaria o desenho no corte de texto pequeno.
+   - Instrument Sans: texto, 400 e 600.
+   - JetBrains Mono: numeros e comanda, 400 e 700.
    ========================================================================== */
 
 @font-face {
-  font-family: 'Sora Variable';
+  font-family: 'Bricolage Grotesque';
   font-style: normal;
-  font-weight: 100 800;         /* eixo do arquivo variavel */
+  font-weight: 200 800;         /* eixo do arquivo variavel */
   font-display: swap;           /* texto visivel na hora, na fonte de sistema */
-  src: url('/fonts/sora-latin-var.woff2') format('woff2-variations');
+  src: url('/fonts/bricolage-grotesque-latin-opsz.woff2') format('woff2-variations');
 }
 
 @font-face {
-  font-family: 'Inter Variable';
+  font-family: 'Instrument Sans';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 400 700;
   font-display: swap;
-  src: url('/fonts/inter-latin-var.woff2') format('woff2-variations');
+  src: url('/fonts/instrument-sans-latin-var.woff2') format('woff2-variations');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-latin-var.woff2') format('woff2-variations');
 }

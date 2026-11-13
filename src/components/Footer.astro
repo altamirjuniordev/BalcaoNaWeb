@@ -1,59 +1,26 @@
 ---
-import Logo from './Logo.astro';
-import { site, linkContato } from '../data/site';
+/* ==========================================================================
+   Rodape e a barra fixa do celular.
 
-const contato = linkContato();
+   A barra (.dock) so existe em tela estreita, onde o botao do topo some:
+   aparece depois que a pessoa passa do hero e sai de cena perto do fim,
+   para nao cobrir o fechamento (landing.js controla).
+   ========================================================================== */
+import BotaoWhats from './BotaoWhats.astro';
+import { site } from '../data/site';
+
 const ano = new Date().getFullYear();
 ---
-<footer class="lp-footer">
-  <div class="wrap">
-    <div class="lp-footer__grid">
-      <div>
-        <Logo />
-        <p class="lp-footer__text">
-          Cardápio digital, painel de pedidos e comanda impressa na cozinha.
-          Para restaurantes, lanchonetes e pizzarias que querem vender direto,
-          sem intermediário mordendo a margem.
-        </p>
-      </div>
-
-      <div class="lp-footer__col">
-        <h2>Produto</h2>
-        <ul>
-          <li><a href="#como-funciona">Como funciona</a></li>
-          <li><a href="#por-que">Por que o Balcão na Web</a></li>
-          <li><a href="#painel">O painel e a cozinha</a></li>
-          <li><a href={site.urlDemo} target="_blank" rel="noopener">Cardápio de exemplo</a></li>
-        </ul>
-      </div>
-
-      <div class="lp-footer__col">
-        <h2>Para quem é</h2>
-        <ul>
-          <li><a href="#por-que">Hamburguerias</a></li>
-          <li><a href="#por-que">Pizzarias</a></li>
-          <li><a href="#por-que">Açaíterias</a></li>
-          <li><a href="#por-que">Restaurantes e marmitarias</a></li>
-        </ul>
-      </div>
-
-      <div class="lp-footer__col">
-        <h2>Falar com a gente</h2>
-        <ul>
-          <li>
-            <a href={contato.href} {...contato.externo ? { target: '_blank', rel: 'noopener' } : {}}
-            >Quero ver funcionando</a>
-          </li>
-          <li><a href="#duvidas">Dúvidas frequentes</a></li>
-          <li><a href="#preco">Preço</a></li>
-          <li><a href={site.urlApp} target="_blank" rel="noopener">Entrar no painel</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="lp-footer__bottom">
-      <span>© {ano} {site.nome}</span>
-      <span>Feito em {site.cidade} · primeira loja no ar: Titu's Burger</span>
-    </div>
+<footer>
+  <div class="wrap foot">
+    <span>© {ano} {site.nome} · Feito em {site.cidade}</span>
+    <nav aria-label="Rodapé">
+      <a href="#demo">Como funciona</a>
+      <a href="#preco">Preço</a>
+      <a href="#duvidas">Dúvidas</a>
+      <a href={site.urlApp}>Entrar no painel</a>
+    </nav>
   </div>
 </footer>
+
+<div class="dock" id="dock"><BotaoWhats bloco /></div>

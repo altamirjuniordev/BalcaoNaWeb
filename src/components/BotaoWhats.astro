@@ -1,0 +1,29 @@
+---
+/* ==========================================================================
+   O botao primario da pagina: verde, abre a conversa no WhatsApp.
+
+   O link sai pronto do build, a partir de src/data/site.ts. No prototipo o
+   href era "#" e o JavaScript preenchia depois; assim o botao funciona sem
+   JS e o numero mora num lugar so.
+   ========================================================================== */
+import { linkContato } from '../data/site';
+
+interface Props {
+  texto?: string;
+  /** Mensagem que ja vai escrita na conversa. Padrao: a de site.ts. */
+  mensagem?: string;
+  /** Versao compacta, da barra do topo. */
+  pequeno?: boolean;
+  /** Ocupa a largura toda do pai. */
+  bloco?: boolean;
+}
+
+const { texto = 'Quero ver funcionando', mensagem, pequeno = false, bloco = false } = Astro.props;
+const { href, externo } = linkContato(mensagem);
+---
+<a
+  class:list={['btn', 'btn-go', 'press', pequeno && 'btn-sm', bloco && 'btn-block']}
+  href={href}
+  target={externo ? '_blank' : undefined}
+  rel={externo ? 'noopener' : undefined}
+><svg class={pequeno ? 'ico-sm' : 'ico'} aria-hidden="true"><use href="#i-wa"/></svg>{texto}</a>

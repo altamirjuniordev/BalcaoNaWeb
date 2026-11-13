@@ -3,11 +3,7 @@ import Seo from '../components/Seo.astro';
 import type { Pergunta } from '../data/faq';
 
 import '../styles/fontes.css';
-import '../styles/tokens.css';
-import '../styles/base.css';
-import '../styles/landing.css';
-import '../styles/hero3d.css';
-import '../styles/ajustes.css';
+import '../styles/site.css';
 
 interface Props {
   titulo: string;
@@ -26,51 +22,33 @@ const { titulo, descricao, caminho, perguntas, noindex } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
     <!-- As fontes sao do mesmo dominio, entao o preload dispara junto com o
-         parse do HTML, sem esperar o CSS resolver o @font-face. -->
-    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin-var.woff2" crossorigin />
-    <link rel="preload" as="font" type="font/woff2" href="/fonts/sora-latin-var.woff2" crossorigin />
+         parse do HTML, sem esperar o CSS resolver o @font-face. So as duas
+         que aparecem no primeiro texto da pagina (titulo e paragrafo); a
+         mono entra depois, com os numeros do simulador. -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/bricolage-grotesque-latin-opsz.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/instrument-sans-latin-var.woff2" crossorigin />
 
     <link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="icon" href="/img/favicon-16.png" sizes="16x16" type="image/png" />
     <link rel="apple-touch-icon" href="/img/favicon-180.png" />
-    <meta name="theme-color" content="#E8552A" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#14100E" media="(prefers-color-scheme: dark)" />
+    <!-- A cor do papel (--paper): a barra do navegador continua a pagina. -->
+    <meta name="theme-color" content="#FBF7F0" />
 
     <Seo titulo={titulo} descricao={descricao} caminho={caminho} perguntas={perguntas} noindex={noindex} />
 
-    <!-- Tema antes da primeira pintura.
-
-         Antes isto vivia no landing.js, carregado no fim do <body>: quem
-         tinha escolhido o modo escuro via a pagina inteira piscar branco a
-         cada carregamento. Bloquear o parser aqui e proposital e custa
-         menos de um milissegundo — e a unica forma de nao piscar.
-
-         A classe `js` no <html> tambem sai daqui: o CSS usa ela para so
-         esconder as secoes da animacao de entrada quando ha JS para
-         mostra-las de volta. -->
-    <script is:inline>
-      (function () {
-        var raiz = document.documentElement;
-        raiz.classList.add('js');
-        try {
-          /* O storage antigo guardava com JSON.stringify, entao o valor
-             podia vir como "dark" com aspas. Aceita os dois formatos. */
-          var salvo = (localStorage.getItem('bw:tema') || '').replace(/"/g, '');
-          if (salvo === 'dark' || salvo === 'light') raiz.setAttribute('data-theme', salvo);
-        } catch (e) { /* modo anonimo: segue o tema do sistema */ }
-      })();
-    </script>
+    <!-- A classe `js` no <html> sai daqui, antes da primeira pintura: o CSS
+         usa ela para so esconder os blocos da animacao de entrada quando ha
+         JS para mostra-los de volta. -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
 
   <body>
-    <a class="skip-link" href="#como-funciona">Pular para o conteúdo</a>
+    <a class="skip" href="#main">Pular para o conteúdo</a>
     <slot />
 
-    <!-- Astro junta os dois num unico modulo minificado e com defer.
-         Antes eram quatro <script> classicos, sem minificacao. -->
+    <!-- Astro empacota num unico modulo minificado e com defer. -->
     <script>
       import '../scripts/landing.js';
-      import '../scripts/hero3d.js';
     </script>
   </body>
 </html>

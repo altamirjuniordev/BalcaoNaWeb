@@ -16,31 +16,23 @@ export interface Pergunta {
 
 export const faq: Pergunta[] = [
   {
-    q: 'Quem cadastra o meu cardápio?',
-    a: 'Nós. Você envia o cardápio que já usa — PDF, foto, planilha ou o link de outro sistema — e a gente monta tudo: categorias, fotos, preços, complementos, adicionais e opções como meio a meio. Você só confere antes de publicar.',
+    q: 'Preciso trocar minha impressora?',
+    a: 'A comanda sai na impressora térmica da cozinha, e a configuração fica por nossa conta na implantação.',
   },
   {
-    q: 'Como o pedido chega até a cozinha?',
-    a: 'O pedido entra no seu painel em tempo real, com som de alerta, e a comanda sai impressa automaticamente na impressora térmica da cozinha em cerca de 2 segundos. Se entrarem vários pedidos de uma vez, todas as comandas saem, uma atrás da outra.',
+    q: 'O cliente precisa instalar alguma coisa?',
+    a: 'Não. O cardápio abre no navegador do celular. Sem app, sem cadastro e sem senha.',
   },
   {
-    q: 'E se acabar o papel da impressora?',
-    a: 'O painel avisa que o papel acabou e guarda a comanda. Assim que você troca a bobina, ela sai sozinha. Nenhum pedido fica para trás.',
+    q: 'Serve pro salão ou só pro delivery?',
+    a: 'Pros dois, no mesmo sistema: delivery, retirada e mesas com conta acumulada.',
   },
   {
-    q: 'Serve para o salão ou só para delivery?',
-    a: 'Os dois, no mesmo sistema. No salão você tem as mesas numeradas na tela: o atendente lança o pedido na mesa usando o mesmo cardápio, a conta vai acumulando e fecha em dois toques, escolhendo a forma de pagamento. No delivery e na retirada valem a sua taxa de entrega e o pedido mínimo.',
+    q: 'E se acabar o papel no meio do movimento?',
+    a: 'O painel avisa, guarda as comandas na fila e imprime todas assim que você troca a bobina.',
   },
   {
-    q: 'Meu cliente precisa instalar alguma coisa?',
-    a: 'Não. O cardápio é um site que abre no navegador do celular, sem app, sem cadastro e sem senha. Você administra tudo pelo navegador também, no computador ou no celular.',
-  },
-  {
-    q: 'Vocês cobram comissão sobre as vendas?',
-    a: 'Não. É preço fixo mensal, sem comissão por pedido e sem contrato de fidelidade. O dinheiro da venda vai inteiro para você, porque o pagamento acontece direto entre a sua loja e o cliente.',
-  },
-  {
-    q: 'Consigo pausar um produto que acabou?',
-    a: 'Em dois toques, pelo painel. O item some do cardápio na hora, em todos os celulares. Vale para fechar a loja no meio do expediente também, e o horário de funcionamento pode ser diferente em cada dia da semana.',
+    q: 'Posso sair quando quiser?',
+    a: 'Pode. Não tem contrato de fidelidade.',
   },
 ];

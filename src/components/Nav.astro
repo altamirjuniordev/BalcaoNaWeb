@@ -1,35 +1,23 @@
 ---
-import Icon from './Icon.astro';
+/* ==========================================================================
+   Barra do topo. Lei de Jakob: logo a esquerda volta ao inicio, "Entrar" a
+   direita, CTA no canto. Hick: 3 destinos, um por pergunta que trava a
+   venda. O `data-spy` liga cada link a secao que ele marca como atual
+   (landing.js).
+   ========================================================================== */
 import Logo from './Logo.astro';
-import { linkContato } from '../data/site';
-
-const contato = linkContato();
+import BotaoWhats from './BotaoWhats.astro';
+import { site } from '../data/site';
 ---
-<header class="lp-nav" id="lp-nav">
-  <div class="lp-nav__inner">
-    <Logo prioridade />
-
-    <nav class="lp-nav__links" aria-label="Seções da página">
-      <a href="#como-funciona">Como funciona</a>
-      <a href="#por-que">Por que</a>
-      <a href="#painel">O painel</a>
-      <a href="#duvidas">Dúvidas</a>
+<header class="top" id="top">
+  <div class="wrap nav">
+    <Logo />
+    <nav class="nav-links" aria-label="Principal">
+      <a href="#demo" data-spy="demo">Como funciona</a>
+      <a href="#preco" data-spy="preco">Preço</a>
+      <a href="#duvidas" data-spy="duvidas">Dúvidas</a>
     </nav>
-
-    <div class="lp-nav__cta">
-      {/* Os dois icones saem no HTML e o CSS mostra o certo conforme o tema.
-          Antes o JS trocava o innerHTML a cada clique, o que deixava o botao
-          vazio ate o script carregar. */}
-      <button type="button" class="icon-btn" id="theme-toggle" aria-label="Alternar tema">
-        <span class="icon-btn__claro" aria-hidden="true"><Icon nome="moon" /></span>
-        <span class="icon-btn__escuro" aria-hidden="true"><Icon nome="sun" /></span>
-      </button>
-
-      <a
-        class="btn btn--primary btn--sm"
-        href={contato.href}
-        {...contato.externo ? { target: '_blank', rel: 'noopener' } : {}}
-      >Quero ver funcionando</a>
-    </div>
+    <a class="login" href={site.urlApp}>Entrar</a>
+    <BotaoWhats pequeno />
   </div>
 </header>

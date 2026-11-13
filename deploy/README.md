@@ -31,11 +31,13 @@ Dashboard → **Workers & Pages** → Create → Pages → Connect to Git → es
 
 O deploy sai num endereço `*.pages.dev`. **Valide ali antes de tocar no DNS:**
 
-- a página abre e o tema não pisca ao recarregar;
+- a página abre com as fontes certas e o simulador do topo funciona: toque
+  em **+**, depois em "Enviar pedido", e a comanda sai na impressora;
 - `/robots.txt` responde **o seu** (o que fala em "Balcão na Web"), não o
   padrão da Cloudflare que fala de content signals;
 - `/sitemap-index.xml` responde, e `/sitemap.xml` redireciona para ele;
-- os botões "Quero ver funcionando" abrem o WhatsApp;
+- os botões "Quero ver funcionando" abrem o WhatsApp, e o da seção de preço
+  abre já perguntando o valor;
 - cole a URL `.pages.dev` num rascunho de WhatsApp e confira se o preview
   aparece **com imagem**.
 

@@ -1,24 +1,65 @@
 ---
-import { site, linkContato } from '../data/site';
-const contato = linkContato();
+/* ==========================================================================
+   7 · UMA DECISAO. Fechamento com a conversa de WhatsApp.
+
+   A conversa mostra o que acontece depois do clique no botao verde, em
+   quatro falas: voce chama, a gente pede o cardapio, voce manda do jeito
+   que tiver, a gente devolve a loja montada. E o "Como comecar" contado
+   como conversa.
+
+   A primeira fala e a mensagem de verdade — a mesma de site.ts que o
+   botao ja deixa escrita no WhatsApp. Trocar la troca aqui.
+
+   A conversa e ilustracao (role="img"): quem usa leitor de tela ouve o
+   resumo do aria-label, nao quatro baloes soltos. As falas entram em
+   sequencia quando o bloco aparece na tela (landing.js liga a classe
+   `play`; os tempos sao o --d de cada fala).
+   ========================================================================== */
+import BotaoWhats from './BotaoWhats.astro';
+import { site } from '../data/site';
 ---
-<section class="section" id="preco">
+<section class="section final">
   <div class="wrap">
-    <div class="cta-final">
-      <h2 class="cta-final__title">Preço fixo mensal, sem comissão</h2>
-      <p class="cta-final__sub">
-        A gente monta o seu cardápio, configura a impressora da cozinha e
-        acompanha os primeiros pedidos com você. Chame no WhatsApp que
-        mostramos funcionando.
-      </p>
-      <div class="cta-final__actions">
-        <a class="btn btn--primary btn--lg" href={contato.href}
-           {...contato.externo ? { target: '_blank', rel: 'noopener' } : {}}
-        >Quero ver funcionando</a>
-        <a class="btn btn--outline btn--lg" href={site.urlDemo} target="_blank" rel="noopener"
-        >Ver cardápio de exemplo</a>
+    <div class="card closing">
+      <div>
+        <div class="head">
+          <p class="eyebrow">Próximo passo</p>
+          <h2>Veja o seu cardápio funcionando antes de decidir.</h2>
+          <p class="lead">Chame no WhatsApp e mostramos o sistema com os produtos da sua loja.</p>
+        </div>
+        <div class="actions">
+          <BotaoWhats />
+        </div>
       </div>
-      <p class="cta-final__note">Sem comissão por pedido · Sem contrato de fidelidade</p>
+
+      <div class="chat" id="chat" role="img" aria-label="Exemplo de conversa no WhatsApp: você chama, a gente pede o cardápio do jeito que tiver, você manda um PDF e recebe o link da sua loja montada com os seus produtos.">
+        <div class="chat-top">
+          <span class="logo-mark"><svg class="ico-sm"><use href="#i-counter"/></svg></span>
+          <div><b>{site.nome}</b><small>● online</small></div>
+        </div>
+        <div class="chat-body">
+          <div class="turn out" style="--d:.2s">
+            <p class="msg">{site.mensagemWhatsapp}<svg class="ticks"><use href="#i-checks"/></svg></p>
+          </div>
+          <div class="turn in" style="--d:1.7s">
+            <span class="typing"><i></i><i></i><i></i></span>
+            <p class="msg">Opa! Manda o cardápio do jeito que tiver: PDF, foto ou link.</p>
+          </div>
+          <div class="turn out" style="--d:2.7s">
+            <p class="msg file"><span class="file-ic">PDF</span><span><b>cardapio.pdf</b><small>Documento<svg class="ticks"><use href="#i-checks"/></svg></small></span></p>
+          </div>
+          <div class="turn in" style="--d:4.2s">
+            <span class="typing"><i></i><i></i><i></i></span>
+            <div class="msg wide">
+              Montamos com os seus produtos. Dá uma olhada:
+              <span class="linkcard">
+                <span class="lc-thumb"><svg class="ico"><use href="#i-store"/></svg></span>
+                <span><b>Sua loja no ar</b><small>sualoja.<wbr>balcaonaweb.com.br</small></span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

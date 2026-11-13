@@ -1,22 +1,21 @@
 ---
-import Icon from './Icon.astro';
+/* ==========================================================================
+   6 · E SE DER ERRADO? As perguntas vem de src/data/faq.ts, a mesma lista
+   que alimenta o JSON-LD do FAQPage. O `name` igual em todos os <details>
+   faz o navegador fechar um quando outro abre, sem JavaScript.
+   ========================================================================== */
 import { faq } from '../data/faq';
 ---
-<section class="section section--tint" id="duvidas">
-  <div class="wrap">
-    <div class="section__head section__head--center">
-      <p class="section__kicker">Dúvidas frequentes</p>
-      <h2 class="section__title">O que todo lojista pergunta primeiro</h2>
+<section class="section" id="duvidas">
+  <div class="wrap split faq">
+    <div class="head">
+      <p class="eyebrow">Dúvidas</p>
+      <h2>Ainda com o pé atrás?</h2>
+      <p class="lead">Se faltar alguma, pergunte direto pra gente.</p>
     </div>
-
-    {/* Mesma lista que alimenta o JSON-LD do FAQPage em Seo.astro — nao da
-        mais para a pagina e o schema divergirem. */}
-    <div class="faq">
+    <div>
       {faq.map((p) => (
-        <details class="faq__item">
-          <summary class="faq__q">{p.q}<Icon nome="chevronDown" /></summary>
-          <p class="faq__a">{p.a}</p>
-        </details>
+        <details name="faq"><summary>{p.q}<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary><p>{p.a}</p></details>
       ))}
     </div>
   </div>

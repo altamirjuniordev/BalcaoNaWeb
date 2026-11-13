@@ -1,0 +1,60 @@
+---
+/* ==========================================================================
+   Simulador guiado: celular do cliente -> painel da loja -> impressora.
+
+   Aqui fica so a moldura. Os itens do cardapio, os pedidos do painel, as
+   colunas por hora e a comanda sao desenhados por src/scripts/landing.js,
+   que e quem guarda o estado do pedido.
+
+   A loja do simulador (Boteco da Brasa) e inventada de proposito: a pagina
+   nao aponta para o cardapio de nenhum cliente ativo.
+   ========================================================================== */
+---
+<div class="stage" id="demo" aria-label="Demonstração interativa">
+  <div class="guide" id="guide"><span class="dot"></span><span id="guideText" aria-live="polite">Toque em + para montar um pedido, como seu cliente faria.</span></div>
+  <div class="cols">
+    <div class="col active" id="c1">
+      <p class="col-label"><span class="n">1</span>Celular do cliente</p>
+      <div class="phone">
+        <div class="ph-cover"></div>
+        <div class="ph-store">
+          <div class="ph-avatar">BB</div>
+          <div><b>Boteco da Brasa</b><span>● Aberto agora</span></div>
+        </div>
+        <div class="seg" role="group" aria-label="Tipo de pedido">
+          <button type="button" aria-pressed="true" data-mode="Delivery">Entrega</button>
+          <button type="button" aria-pressed="false" data-mode="Retirada">Retirada</button>
+        </div>
+        <div class="ph-items" id="items"></div>
+        <div class="ph-foot">
+          <button class="send press" id="send" type="button" disabled><span>Enviar pedido</span><span class="num" id="total">R$ 0,00</span></button>
+          <p class="ph-note">Sem app, cadastro ou senha</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col" id="c2">
+      <p class="col-label"><span class="n">2</span>Seu painel, no caixa ou no celular</p>
+      <div class="panel">
+        <div class="pn-top">
+          <svg class="ico bell" id="bell" aria-hidden="true"><use href="#i-bell"/></svg>
+          <b>Pedidos de hoje</b>
+          <div class="pn-kpi"><span>Pedidos <span class="num" id="kCount">34</span></span><span>Caixa <span class="num" id="kCash">R$ 1.842,60</span></span></div>
+        </div>
+        <div class="pn-chart">
+          <div class="viz-head"><span class="t">Pedidos por hora</span><span class="t">agora: <b class="num" id="nowCount">4</b></span></div>
+          <div class="hours" id="hours" aria-hidden="true"></div>
+          <div class="hours-x"><span>11h</span><span>16h</span><span>22h</span></div>
+        </div>
+        <div class="orders" id="orders" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div class="col col-ticket" id="c3">
+      <p class="col-label"><span class="n">3</span>Impressora da cozinha</p>
+      <div class="printer" id="printer"><span class="led"></span>Térmica conectada</div>
+      <div class="slot"><div class="ticket" id="ticket"></div><p class="slot-empty" id="slotEmpty">A comanda sai aqui, sozinha.</p></div>
+      <p class="timer" id="timer" hidden>Do pedido à comanda:<span class="num" id="tSec">0,0s</span></p>
+    </div>
+  </div>
+</div>

@@ -25,6 +25,7 @@ npm run dev      # http://localhost:4321
 | `npm run preview` | serve o `dist/` como ficará em produção |
 | `npm run img` | regera logo e favicons a partir de `src/images/` |
 | `npm run og` | regera `public/og.png` (rode depois de `npm run img`) |
+| `npm run fontes` | copia as fontes dos pacotes `@fontsource-variable` para `public/fonts/` |
 
 ---
 
@@ -33,9 +34,22 @@ npm run dev      # http://localhost:4321
 Tudo em **`src/data/site.ts`**: domínio, URLs do app e da demo, WhatsApp,
 cidade e redes sociais.
 
-O WhatsApp (`5581995478511`) alimenta os 4 botões "Quero ver funcionando" —
-nav, hero, CTA final e rodapé. Se for esvaziado, eles voltam a ser âncora
-interna: a página funciona, mas não converte.
+O WhatsApp (`5581995478511`) alimenta os 5 botões verdes da página: os 4
+"Quero ver funcionando" (barra do topo, hero, fechamento e barra fixa do
+celular) e o "Pedir o valor no WhatsApp" da seção de preço, que abre a
+conversa já perguntando a mensalidade. Todos passam por
+`components/BotaoWhats.astro` e saem prontos do build, sem depender de
+JavaScript. Se o número for esvaziado, eles viram âncora interna: a página
+funciona, mas não converte.
+
+`mensagemWhatsapp` é o texto que já vai escrito na conversa — **e também a
+primeira fala da conversa ilustrada do fechamento**, então as duas nunca
+divergem.
+
+A página **não aponta para a loja de nenhum cliente ativo**: os links
+"cardápio real", o QR Code e a menção à primeira loja que existiam no
+protótipo saíram. A demonstração é o simulador do topo, com uma loja
+inventada.
 
 `instagram` e `facebook` seguem vazios. Preenchidos, entram no `sameAs` do
 schema, que ajuda o Google a ligar o site à entidade da marca — vale preencher
@@ -50,38 +64,45 @@ src/
   data/
     site.ts          configuração central (WhatsApp, domínio, URLs, local)
     faq.ts           perguntas — fonte única do <details> E do JSON-LD
-  layouts/Base.astro <head>, fontes, tema, scripts
+  layouts/Base.astro <head>, fontes, scripts
   components/
     Seo.astro        meta, Open Graph, Twitter e JSON-LD de uma página
-    Icon.astro       + icones.ts — SVG inline, sem JS
-    Logo.astro       logo da marca, com variante por tema
-    Nav / Hero / Hero3D / ComoFunciona / PorQue / Painel / EmBreve /
-    Faq / CtaFinal / Footer
+    Icones.astro     sprite de ícones (<symbol>), usado com <use href="#i-…">
+    Logo.astro       marcador laranja + nome em texto, na barra do topo
+    BotaoWhats.astro o botão verde; monta o link do WhatsApp no build
+    — as seções, na ordem em que aparecem —
+    Nav              barra do topo
+    Hero             promessa + Simulador (celular → painel → impressora)
+    Calculadora      quanto a comissão leva por mês e por ano
+    Painel           recursos em 3 abas, com as telas de exemplo
+    ComoComecar      os 3 passos da implantação
+    Preco            a "comanda mensal" e o botão de pedir o valor
+    Faq              perguntas (lê de data/faq.ts)
+    CtaFinal         fechamento com a conversa de WhatsApp animada
+    Footer           rodapé + barra fixa do celular
   styles/
-    tokens.css       design tokens (cor, tipo, espaço, sombra) — não mexi
-    base.css         reset e componentes base — não mexi
-    landing.css      seções da landing — não mexi
-    hero3d.css       composição do painel — não mexi
+    site.css         o sistema de design inteiro: tokens no :root, depois
+                     os componentes na ordem da página
     fontes.css       @font-face das fontes self-hosted
-    ajustes.css      o que precisou de CSS porque saiu do JS
   images/            artes originais da marca (fonte, não vão para o ar)
   scripts/
-    utils.js         helpers (7 funções, era 20)
-    landing.js       tema, sombra da nav, revelação ao rolar
-    hero3d.js        animação da composição do painel
+    landing.js       simulador, gráficos, calculadora, abas, entrada ao rolar
   pages/index.astro
 public/
   og.png             imagem de compartilhamento (1200×630)
-  img/               logo (2 variantes) e favicons — gerados, não editar
-  robots.txt  fonts/
+  img/               logo (para o schema) e favicons — gerados, não editar
+  fonts/             3 fontes variáveis — copiadas por `npm run fontes`
+  robots.txt
   _headers           cache e segurança (Cloudflare Pages)
   _redirects         /sitemap.xml -> /sitemap-index.xml
+scripts/             geradores (imagens, og, fontes) — rodam à mão, não no build
 deploy/
   README.md          passo a passo da publicação
 ```
 
-O design não foi alterado: os quatro CSS originais estão intactos e tudo que
-mudou está em `ajustes.css`.
+O design veio de um protótipo em um único `index.html`. O CSS e o JavaScript
+dele estão em `site.css` e `landing.js` praticamente como chegaram; o que
+mudou no porte para o Astro está na seção abaixo.
 
 ---
 
@@ -95,21 +116,28 @@ www e o que ajustar no Caddy depois — está em **[`deploy/README.md`](deploy/R
 
 ---
 
-## O que mudou em relação à versão anterior
+## Do protótipo para o site
 
-### Performance
+O visual e o comportamento são os do protótipo. O que mudou foi por baixo:
 
-| Antes | Agora |
+| No protótipo | No site |
 |---|---|
-| Google Fonts por `<link>`: 2 origens externas, ~3 idas e voltas antes do primeiro texto | fontes variáveis self-hosted, com `preload` e `font-display: swap` |
-| 4 CSS separados, 47 KB sem minificar | 1 CSS minificado, 7,7 KB com gzip |
-| 4 JS separados, 29 KB sem minificar | 1 módulo com `defer`, 2,8 KB com gzip |
-| 35 ícones baixados por JS para usar 10, injetados depois do carregamento | 10 SVG inline no HTML, zero JS, zero layout shift |
-| `utils.js` com 20 funções, 13 sem uso na landing | 7 funções |
-| tema lido no fim do `<body>` → flash branco a cada carregamento | script inline no `<head>`, sem flash |
-| conteúdo escondido por `style` inline escrito pelo JS | estado inicial no CSS, sob a classe `js` |
+| Google Fonts por `<link>`: 2 origens externas, e a folha de estilo segurava a primeira pintura | fontes variáveis self-hosted, com `preload` e `font-display: swap` |
+| QR Code no fechamento, montado por uma biblioteca de CDN | saiu; no lugar, uma conversa de WhatsApp que mostra o que acontece depois do clique (só HTML e CSS) |
+| links de WhatsApp com `href="#"`, preenchidos por JS, com o número escrito no script | links prontos no HTML, a partir de `site.ts` |
+| CSS e JS inline, sem minificar, 78 KB num arquivo só | HTML 8,6 KB + CSS 7,0 KB + JS 6,5 KB (gzip), CSS e JS com cache de um ano |
+| blocos com entrada animada começavam invisíveis mesmo sem JS | estado inicial sob a classe `js`: sem JavaScript nada some |
+| `© 2026` fixo, URL do app repetida no HTML | ano do build e URL de `site.ts` |
+| links e menção à loja de um cliente ativo | saíram |
+| 5 perguntas só no HTML | as mesmas 5 em `faq.ts`, que também gera o JSON-LD |
+
+A página não faz **nenhuma requisição a outro domínio**: tudo sai do
+próprio site.
 
 ### SEO
+
+Vem da migração anterior para o Astro e continua valendo:
+
 
 - **`og:image` era `.svg`** — WhatsApp, Facebook, LinkedIn e Twitter não
   renderizam SVG. Todo link compartilhado aparecia sem imagem. Agora é PNG.
@@ -125,11 +153,6 @@ www e o que ajustar no Caddy depois — está em **[`deploy/README.md`](deploy/R
 - **`og:url`, `twitter:title`/`description`/`image`** e
   `robots: max-image-preview:large` (libera a miniatura grande na busca).
 - **Canonical e sitemap concordando** na barra final.
-
-### Limpeza
-
-- 4 SVG em `assets/img/produtos/` que nenhum arquivo referenciava.
-- `servidor.js`, que anunciava um `/cardapio.html` inexistente.
 
 ---
 
@@ -163,19 +186,23 @@ Estas dependem do app Next.js ou do painel da Cloudflare, não deste projeto:
 
 ## A marca
 
+**Na página, o logo é texto**: o marcador laranja com o balcão e o nome na
+fonte dos títulos (`Logo.astro`), como no protótipo. A arte da marca aparece
+em três lugares fora dela: no favicon, na imagem de compartilhamento
+(`og.png`) e no `Organization.logo` do schema, que o Google usa no painel de
+conhecimento.
+
 As artes originais ficam em `src/images/` e **não são publicadas** — o que vai
-para o ar é o que `npm run img` gera em `public/img/`, reduzido para o tamanho
-em que é de fato exibido. Juntas, as originais somam ~1 MB; as versões
-publicadas somam ~22 KB.
+para o ar é o que `npm run img` gera em `public/img/`. Juntas, as originais
+somam ~1 MB; as versões publicadas somam ~32 KB.
 
 Três coisas que o script resolve e vale saber antes de trocar a arte:
 
-- **O logo tem o texto em branco**, feito para fundo escuro — sobre o creme do
-  tema claro a palavra "BALCÃO" desaparecia. O script gera a variante de texto
-  escuro recolorindo só os pixels sem cor; laranja e azul ficam intactos. O
-  `Logo.astro` mostra a certa conforme o tema.
-- **O logo original tinha 17% da altura em borda transparente**, o que encolhia
-  o texto na barra de navegação sem motivo. O script recorta.
+- **O logo tem o texto em branco**, feito para fundo escuro — sobre fundo
+  claro a palavra "BALCÃO" desaparece. O script gera a variante de texto
+  escuro recolorindo só os pixels sem cor; laranja e azul ficam intactos.
+- **O logo original tinha 17% da altura em borda transparente**. O script
+  recorta.
 - **O favicon fica ilegível a 16px** — a arte tem wifi, balcão, notebook e
   monograma, e tudo isso vira um borrão no tamanho da aba do navegador. A
   partir de 32px funciona. Se um dia valer a pena, o caminho é uma versão
@@ -183,8 +210,9 @@ Três coisas que o script resolve e vale saber antes de trocar a arte:
 
 ## Otimização ainda possível
 
-As fontes somam 82 KB — o maior item do peso da página. Dá para cortar boa
-parte com subsetting (`subset-font` no build, restringindo o eixo de peso a
-400–800). Não fiz porque as fontes carregam com `swap` (não seguram o texto),
-ficam em cache por um ano e o subsetting por caractere quebra quando entram
-páginas novas. Vale reavaliar se o site crescer e o peso incomodar.
+As fontes somam 147 KB — de longe o maior item do peso da página. A dos
+títulos (Bricolage Grotesque, 77 KB) pesa mais porque carrega o eixo de peso
+inteiro e a página só usa o 800: fixar o peso em 800 mantendo o eixo óptico
+(`fonttools varLib.instancer`) deve cortar perto da metade. Não fiz porque as
+fontes carregam com `swap` (não seguram o texto) e ficam em cache por um ano.
+Vale reavaliar se o peso incomodar no celular.

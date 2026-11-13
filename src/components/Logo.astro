@@ -1,43 +1,12 @@
 ---
 /* ==========================================================================
-   Logo da marca.
+   Logo da barra do topo: o marcador laranja com o balcao + o nome em texto,
+   na fonte dos titulos. Clicar volta ao inicio da pagina.
 
-   Sao duas imagens porque a arte original tem o texto em branco: sobre o
-   creme do tema claro ela desaparece. A variante de texto escuro entra no
-   claro, a original no escuro, e o CSS decide qual mostrar — mesmo padrao
-   do botao de tema, cobrindo os tres estados (escolha explicita do usuario
-   nos dois sentidos e preferencia do sistema).
-
-   width/height ficam nos atributos para o navegador reservar o espaco antes
-   de baixar a imagem: sem isso a nav pula quando o logo carrega.
+   O marcador (.logo-mark) tambem e o avatar da conversa do fechamento.
    ========================================================================== */
-interface Props {
-  /** Altura de exibicao em px. O arquivo tem 80px, entao ate 40 fica 2x. */
-  altura?: number;
-  /** O do rodape esta abaixo da dobra e nao disputa prioridade com o hero. */
-  prioridade?: boolean;
-}
-
-const { altura = 36, prioridade = false } = Astro.props;
-const largura = Math.round(altura * 596 / 200);   // proporcao do arquivo
+import { site } from '../data/site';
 ---
-<a class="lp-logo" href="/">
-  <img
-    class="lp-logo__img lp-logo__img--claro"
-    src="/img/logo-claro.png"
-    width={largura} height={altura}
-    style={`height:${altura}px`}
-    alt="Balcão na Web"
-    fetchpriority={prioridade ? 'high' : 'auto'}
-    loading={prioridade ? 'eager' : 'lazy'}
-  />
-  <img
-    class="lp-logo__img lp-logo__img--escuro"
-    src="/img/logo-escuro.png"
-    width={largura} height={altura}
-    style={`height:${altura}px`}
-    alt="Balcão na Web"
-    fetchpriority={prioridade ? 'high' : 'auto'}
-    loading={prioridade ? 'eager' : 'lazy'}
-  />
+<a class="logo" href="#top" aria-label={`${site.nome}, voltar ao início`}>
+  <span class="logo-mark"><svg class="ico-sm" aria-hidden="true"><use href="#i-counter"/></svg></span>{site.nome}
 </a>

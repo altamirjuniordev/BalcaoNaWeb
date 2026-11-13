@@ -1,0 +1,43 @@
+---
+/* ==========================================================================
+   5 · QUANTO CUSTA? A proposta impressa como uma comanda. O valor nao esta
+   na pagina de proposito: o botao abre o WhatsApp ja perguntando por ele.
+   ========================================================================== */
+import BotaoWhats from './BotaoWhats.astro';
+---
+<section class="section" id="preco">
+  <div class="wrap split">
+    <div class="head">
+      <p class="eyebrow">Preço</p>
+      <h2>Um valor fixo por mês. E só.</h2>
+      <p class="lead">Vendeu 10 ou 1.000 pedidos, você paga o mesmo. O dinheiro do cliente vai direto pra você.</p>
+    </div>
+    <div class="price-col">
+      <div class="receipt reveal" aria-label="O que está incluído na mensalidade">
+        <p class="c brandline">BALCÃO NA WEB</p>
+        <p class="c sub">COMANDA MENSAL · POR LOJA</p>
+        <hr>
+        <ul>
+          <li><span>Cardápio montado</span><i></i><b>incluso</b></li>
+          <li><span>Endereço + QR Code</span><i></i><b>incluso</b></li>
+          <li><span>Painel, salão e caixa</span><i></i><b>incluso</b></li>
+          <li><span>Impressora configurada</span><i></i><b>incluso</b></li>
+          <li><span>Primeiros pedidos</span><i></i><b>acompanhados</b></li>
+        </ul>
+        <hr>
+        <ul>
+          <li class="zero"><span>Comissão por pedido</span><i></i><b>R$ 0,00</b></li>
+          <li class="zero"><span>Fidelidade</span><i></i><b>nenhuma</b></li>
+        </ul>
+        <hr>
+        <p class="total"><span>TOTAL</span><span>Valor fixo/mês</span></p>
+        <p class="thanks">obrigado pela preferência :)</p>
+      </div>
+      <BotaoWhats
+        bloco
+        texto="Pedir o valor no WhatsApp"
+        mensagem="Oi! Quero saber o valor da mensalidade do Balcão na Web."
+      />
+    </div>
+  </div>
+</section>

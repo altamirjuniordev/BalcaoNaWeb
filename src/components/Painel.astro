@@ -1,77 +1,84 @@
 ---
-import Icon from './Icon.astro';
-
-const comanda = `     BOTECO DA BRASA
-================================
-PEDIDO #128            19:42
-MESA 7
---------------------------------
-1x SMASH DUPLO
-   + Bacon crocante
-   OBS: sem cebola
-
-2x BATATA COM CHEDDAR
---------------------------------
-TOTAL               R$ 74,00
-================================
-   Balcao na Web`;
+/* ==========================================================================
+   3 · O QUE TEM DENTRO? Hick: 3 grupos x 3 itens, em abas, em vez de 12
+   cards. A troca de aba, os interruptores e os graficos do caixa ficam em
+   landing.js.
+   ========================================================================== */
 ---
-<section class="section section--tint" id="painel">
+<section class="section" id="painel">
   <div class="wrap">
-    <div class="section__head">
-      <p class="section__kicker">Veja funcionando</p>
-      <h2 class="section__title">O pedido entra no painel e a cozinha já sabe</h2>
-      <p class="section__sub">
-        Nada de decifrar áudio de 40 segundos, anotar em papel ou ficar
-        conferindo o celular. O quadro de pedidos toca, e a comanda já está
-        saindo na impressora.
-      </p>
+    <div class="head">
+      <p class="eyebrow">O painel</p>
+      <h2>A loja inteira numa tela só.</h2>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Recursos do painel">
+      <button class="tab" role="tab" aria-selected="true" aria-controls="t1" id="tb1">Pedidos e cozinha</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="t2" id="tb2" tabindex="-1">Salão e caixa</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="t3" id="tb3" tabindex="-1">Controle da loja</button>
     </div>
 
-    <div class="demo">
-      <div class="shot">
-        <p class="shot__label">Quadro de pedidos · em tempo real</p>
-
-        <div class="order" data-state="novo">
-          <span class="order__flag">Novo</span>
-          <span class="order__body">
-            <span class="order__title">#128 · Mesa 7</span>
-            <span class="order__meta">3 itens · há 12 segundos</span>
-          </span>
-          <span class="order__value">R$ 74,00</span>
+    <div class="tabpanel split" role="tabpanel" id="t1" aria-labelledby="tb1">
+      <ul class="feats">
+        <li><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-bell"/></svg></span><div><b>Pedido toca na hora</b><span>Alerta sonoro e status em um toque: recebido, preparando, saiu, concluído.</span></div></li>
+        <li><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-print"/></svg></span><div><b>Comanda sai sozinha</b><span>Vários pedidos saem em fila, sem ninguém apertar nada.</span></div></li>
+        <li><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-warn"/></svg></span><div><b>Acabou o papel? Nada se perde</b><span>O painel avisa, guarda a fila e imprime quando a bobina volta.</span></div></li>
+      </ul>
+      <div class="card mock">
+        <p class="card-head">Fila da impressora <span class="chip chip-amber">Sem papel</span></p>
+        <p class="banner"><svg class="ico-sm" aria-hidden="true"><use href="#i-warn"/></svg>2 comandas aguardando a bobina</p>
+        <div class="rows">
+          <div class="row-item">#141 · Delivery <span class="chip chip-neutral">Na fila</span></div>
+          <div class="row-item">#142 · Mesa 7 <span class="chip chip-neutral">Na fila</span></div>
+          <div class="row-item dim">#140 · Retirada <span class="chip chip-go">Impressa</span></div>
         </div>
-
-        <div class="order" data-state="preparo">
-          <span class="order__flag order__flag--preparo">Em preparo</span>
-          <span class="order__body">
-            <span class="order__title">#127 · Delivery</span>
-            <span class="order__meta">Boa Viagem · 2 itens</span>
-          </span>
-          <span class="order__value">R$ 58,40</span>
-        </div>
-
-        <div class="order" data-state="pronto">
-          <span class="order__flag order__flag--pronto">Pronto</span>
-          <span class="order__body">
-            <span class="order__title">#126 · Retirada</span>
-            <span class="order__meta">Aguardando o cliente</span>
-          </span>
-          <span class="order__value">R$ 31,50</span>
-        </div>
-
-        <p class="shot__total"><span>Caixa de hoje · 34 pedidos</span><span>R$ 1.842,60</span></p>
       </div>
+    </div>
 
-      <div class="shot shot--printer">
-        <p class="shot__label">Comanda na cozinha · automática</p>
-
-        <div class="comanda" role="img" aria-label="Comanda impressa do pedido 128, mesa 7: 1 Smash Duplo com bacon e sem cebola, 2 batatas com cheddar, total R$ 74,00">
-          <pre class="comanda__paper">{comanda}</pre>
+    <div class="tabpanel split" role="tabpanel" id="t2" aria-labelledby="tb2" hidden>
+      <ul class="feats">
+        <li><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-table"/></svg></span><div><b>Mesas com conta acumulada</b><span>Abre a mesa, vai somando e fecha em dois toques com a forma de pagamento.</span></div></li>
+        <li><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-chart"/></svg></span><div><b>Caixa do dia sem planilha</b><span>Faturamento, ticket médio e mais vendidos, por mesa, delivery e retirada.</span></div></li>
+        <li><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-search"/></svg></span><div><b>Histórico pesquisável</b><span>Encontre qualquer pedido antigo em segundos.</span></div></li>
+        <li><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg></span><div><b>Em breve: pedido pela mesa</b><span>O cliente aponta a câmera no QR Code e o pedido entra direto na comanda da mesa.</span></div></li>
+      </ul>
+      <div class="card mock dash">
+        <p class="card-head">Caixa de hoje <span class="chip chip-go">● Ao vivo</span></p>
+        <div class="kpis">
+          <div><small>Faturamento</small><span class="num" data-count="4890.5" data-fmt="brl">R$ 0</span></div>
+          <div><small>Ticket médio</small><span class="num" data-count="38.2" data-fmt="brl">R$ 0</span></div>
+          <div><small>Pedidos</small><span class="num" data-count="128">0</span></div>
         </div>
+        <div class="dash-block">
+          <div class="viz-head"><span class="t">Faturamento · 7 dias</span><span class="num">R$ 24.780,50</span></div>
+          <div class="viz" id="vizWeek"></div>
+          <table class="sr-only" id="tblWeek"><caption>Faturamento dos últimos 7 dias</caption></table>
+        </div>
+        <div class="dash-block">
+          <div class="viz-head"><span class="t">Formas de pagamento</span>
+            <div class="legend"><span style="--c:var(--viz-1)"><i></i>Cartão</span><span style="--c:var(--viz-2)"><i></i>PIX</span><span style="--c:var(--viz-3)"><i></i>Dinheiro</span></div>
+          </div>
+          <div class="segbar-wrap">
+            <div class="segbar" id="payBar" role="img" aria-label="Formas de pagamento hoje: Cartão 58%, PIX 30%, Dinheiro 12%">
+              <div class="part" style="--w:58;--c:var(--viz-1)" data-name="Cartão" data-v="2836.49"><span>58%</span></div>
+              <div class="part" style="--w:30;--c:var(--viz-2)" data-name="PIX" data-v="1467.15"><span>30%</span></div>
+              <div class="part" style="--w:12;--c:var(--viz-3)" data-name="Dinheiro" data-v="586.86"><span>12%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <p class="comanda__note"><Icon nome="checkCircle" />
-          Sai sozinha em ~2 segundos. Sem papel, o painel avisa e reimprime depois.
-        </p>
+    <div class="tabpanel split" role="tabpanel" id="t3" aria-labelledby="tb3" hidden>
+      <ul class="feats">
+        <li><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-pause"/></svg></span><div><b>Acabou o produto? Pausa em dois toques</b><span>Some do cardápio na hora e volta quando você quiser.</span></div></li>
+        <li><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-store"/></svg></span><div><b>Fechar a loja agora</b><span>Para um imprevisto, sem mexer no horário fixo.</span></div></li>
+        <li><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg></span><div><b>Horário, taxa e pedido mínimo</b><span>Por dia da semana. O cardápio respeita tudo sozinho.</span></div></li>
+      </ul>
+      <div class="card mock">
+        <p class="card-head">Controle rápido <span class="chip chip-neutral">Toque para testar</span></p>
+        <div class="toggle"><div><b>Loja aberta</b><small>Recebendo pedidos</small></div><button class="sw" role="switch" aria-checked="true" aria-label="Loja aberta" data-on="Recebendo pedidos" data-off="Fechada agora, o cardápio avisa o cliente"></button></div>
+        <div class="toggle"><div><b>Smash Duplo</b><small>Disponível no cardápio</small></div><button class="sw" role="switch" aria-checked="true" aria-label="Smash Duplo disponível" data-on="Disponível no cardápio" data-off="Pausado, sumiu do cardápio"></button></div>
+        <div class="toggle"><div><b>Batata Rústica</b><small>Pausado, sumiu do cardápio</small></div><button class="sw" role="switch" aria-checked="false" aria-label="Batata Rústica disponível" data-on="Disponível no cardápio" data-off="Pausado, sumiu do cardápio"></button></div>
       </div>
     </div>
   </div>

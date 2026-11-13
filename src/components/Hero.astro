@@ -1,57 +1,25 @@
 ---
-import Icon from './Icon.astro';
-import Hero3D from './Hero3D.astro';
-import { site, linkContato } from '../data/site';
-
-const contato = linkContato();
+/* ==========================================================================
+   1 · O QUE E + FUNCIONA? Promessa e prova na mesma regiao: o simulador
+   vem logo abaixo do titulo, dentro do mesmo bloco.
+   ========================================================================== */
+import BotaoWhats from './BotaoWhats.astro';
+import Simulador from './Simulador.astro';
 ---
-<section class="hero">
-  <div class="wrap hero__inner">
-    <div>
-      <p class="eyebrow"><span class="eyebrow__dot"></span> Sem comissão por pedido</p>
-
-      <h1 class="hero__title">
-        Do cardápio no celular do cliente à <em>comanda impressa na cozinha</em>
-      </h1>
-
-      <p class="hero__sub">
-        Seu cardápio digital em endereço próprio, com QR Code. O cliente pede
-        pelo celular — sem app, sem cadastro, sem senha. O pedido entra no seu
-        painel na hora e a comanda sai sozinha na impressora da cozinha.
-      </p>
-
-      <div class="hero__cta">
-        <a class="btn btn--primary btn--lg" href={contato.href}
-           {...contato.externo ? { target: '_blank', rel: 'noopener' } : {}}
-        >Quero ver funcionando</a>
-        <a class="btn btn--outline btn--lg" href={site.urlDemo} target="_blank" rel="noopener"
-        >Ver cardápio de exemplo</a>
-      </div>
-
-      <p class="hero__note"><Icon nome="checkCircle" />
-        Nós cadastramos seu cardápio · Sem contrato de fidelidade
-      </p>
-
-      <div class="trustbar">
-        <div class="trustbar__item">
-          <span class="trustbar__num">0%</span>
-          <span class="trustbar__label">de comissão por pedido</span>
-        </div>
-        <div class="trustbar__item">
-          <span class="trustbar__num">~2 seg</span>
-          <span class="trustbar__label">do pedido à comanda na cozinha</span>
-        </div>
-        <div class="trustbar__item">
-          <span class="trustbar__num">Salão<br />+ delivery</span>
-          <span class="trustbar__label">no mesmo sistema</span>
-        </div>
-        <div class="trustbar__item">
-          <span class="trustbar__num">{site.cidade}</span>
-          <span class="trustbar__label">feito aqui, com lojista de verdade</span>
-        </div>
-      </div>
+<section class="section hero">
+  <div class="wrap">
+    <h1>Seu delivery, <em>sem comissão</em>.</h1>
+    <p class="lead">Cardápio digital com endereço próprio. O cliente pede pelo celular, o pedido toca no seu painel e a comanda sai impressa na cozinha em cerca de 2 segundos.</p>
+    <div class="actions">
+      <BotaoWhats />
+      <a class="btn-link" href="#demo">Testar aqui<svg class="ico-sm" aria-hidden="true"><use href="#i-down"/></svg></a>
     </div>
+    <ul class="facts">
+      <li><svg class="ico-sm" aria-hidden="true"><use href="#i-check"/></svg>A gente cadastra seu cardápio</li>
+      <li><svg class="ico-sm" aria-hidden="true"><use href="#i-check"/></svg>Cliente não instala nada</li>
+      <li><svg class="ico-sm" aria-hidden="true"><use href="#i-check"/></svg>Sem fidelidade</li>
+    </ul>
 
-    <Hero3D />
+    <Simulador />
   </div>
 </section>

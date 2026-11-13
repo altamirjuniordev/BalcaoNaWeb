@@ -1,29 +1,34 @@
 ---
+/* A pagina segue a ordem das perguntas de quem esta decidindo:
+   o que e e funciona? -> vale a pena? -> o que tem dentro? -> da trabalho?
+   -> quanto custa? -> e se der errado? -> uma decisao. */
 import Base from '../layouts/Base.astro';
+import Icones from '../components/Icones.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
-import ComoFunciona from '../components/ComoFunciona.astro';
-import PorQue from '../components/PorQue.astro';
+import Calculadora from '../components/Calculadora.astro';
 import Painel from '../components/Painel.astro';
-import EmBreve from '../components/EmBreve.astro';
+import ComoComecar from '../components/ComoComecar.astro';
+import Preco from '../components/Preco.astro';
 import Faq from '../components/Faq.astro';
 import CtaFinal from '../components/CtaFinal.astro';
 import Footer from '../components/Footer.astro';
 import { faq } from '../data/faq';
 ---
 <Base
-  titulo="Balcão na Web · Cardápio digital com painel de pedidos e impressão na cozinha"
-  descricao="Seu cardápio digital em endereço próprio e com QR Code. O cliente pede pelo celular, o pedido entra no seu painel em tempo real e a comanda sai impressa na cozinha. Salão e delivery no mesmo lugar, sem comissão por pedido."
+  titulo="Balcão na Web — cardápio digital sem comissão"
+  descricao="Cardápio digital com endereço próprio, painel de pedidos em tempo real e comanda impressa na cozinha. Preço fixo, sem comissão."
   caminho="/"
   perguntas={faq}
 >
+  <Icones />
   <Nav />
-  <main id="top">
+  <main id="main">
     <Hero />
-    <ComoFunciona />
-    <PorQue />
+    <Calculadora />
     <Painel />
-    <EmBreve />
+    <ComoComecar />
+    <Preco />
     <Faq />
     <CtaFinal />
   </main>
